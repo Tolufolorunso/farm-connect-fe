@@ -1,0 +1,53 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.navbar {
+    display: flex;
+    width: 45%;
+    justify-content: space-between;
+}
+
+.profile-img {
+    width: 35px;
+}
+
+.welcome h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.desktop-flex {
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.75);
+    border-radius: 5px;
+    width: 70vw;
+    margin: 0 auto;
+}
+
+.success {
+    background-color: #fff;
+}
+
+.start-btn {
+    color: #fff;
+    background-color: #144a05;
+    border: none;
+    margin: auto;
+    border-radius: 5px;
+    padding: 15px 20px;
+    font-weight: 500;
+}
+
+@media (min-width: 300px) and (max-width: 400px) {
+    .desktop-flex {
+        margin-top: -40px;
+    }
+
+    .welcome h1 {
+        font-size: 1.8rem;
+    }
+}

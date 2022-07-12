@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../../img/icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/0e498dcbfc.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/dashboard.css">
+    <link rel="stylesheet" href="../../css/f-product-register.css">
+
+    <title>FarmConnect | Product Register</title>
+</head>
+
+<body>
+    <header>
+        <div class="nav-items">
+            <div class="logo">
+                <a href="../homepage.html" class="logo"><img src="../../img/logoCrop.png"></a>
+            </div>
+            <nav class="navbar animation2">
+                <a href="../homepage.html" class="item first">Home</a>
+                <a href="/pages/farmers/f-dashboard.html" class="nav-item item">Dashboard</a>
+                <a href="../u-about-us.html" class="nav-item item">About Us</a>
+                <a href="../u-funded.html" class="nav-item item">Funded</a>
+                <a href="../farmers/contact.html" class="nav-item item">Get Help</a>
+                <a href="f-profile.html"><img class="profile-img" src="../../img/profile-img.svg" alt="profile-img"></a>
+            </nav>
+            <span class="hamm"><i class="fas ham fa-bars"></i></span>
+        </div>
+    </header>
+    <img class="bg1" src="../../img/bg.svg" alt="">
+    <section class="signupbox">
+
+        <div class="formbox">
+            <h1 class="head-form">REGISTER PRODUCT</h1>
+
+            <form class="form" id="productid" enctype="multipart/form-data">
+                <div class="form-input">
+                    <div>
+                        <input type="text" class="input-farm" aria-label="farm-name"
+                            placeholder="Name of Product or Farm" name="farmname" id="farmname" required>
+                    </div>
+                    <div>
+                        <input type="text" class="input-farm" aria-label="amount needed"
+                            placeholder="Amount Needed(Naira)" name="amountneed" id="amountneed" required>
+                    </div>
+                    <div>
+                        <input type="text" class="input-farm" aria-label="duration of investment"
+                            placeholder="Duration of Investment(Months)" name="duration" id="duration" required>
+                    </div>
+                    <div>
+                        <input type="number" class="input-farm" aria-label="returns on investment"
+                            placeholder="Returns on Investment(%)" name="returns" id="returns" required>
+                    </div>
+                    <div>
+                        <input type="number" class="input-farm" aria-label="minimum investment per unit"
+                            placeholder="Minimum Investment per Unit(Naira)" name="invest" id="invest" required>
+                    </div>
+                    <div>
+                        <label id="file-label" for="file-upload">Upload appropriate image representing the product</label>
+                        <input type="file" class="input-farm" aria-label="upload image" accept="image/*" name="image"
+                            id="fileupload" required>
+                    </div>
+                    <div>
+                        <input type="text" class="input-farm" aria-label="farm-loc" placeholder="Farm Location"
+                            name="farmloc" id="farmloc" required>
+                    </div>
+                    <textarea class="input-farm" placeholder="Project Description" name="projectdesc" id="projectdesc"
+                        cols="30" rows="10" required></textarea>
+                </div>
+
+                <div>
+                    <input type="checkbox" class="input-check"><span class="agree">By clicking ‘Register’, you agree to
+                        Farmvest’s <span class="terms">Terms of Use , Sponsorship and Privacy Policy</span></span>
+                </div>
+
+                <div class="loader none">Loading...</div>
+                <div class="error none"></div>
+
+                <div>
+                    <input class="input-farm" disabled aria-label="register" type="submit" value="REGISTER" id="register">
+                </div>
+            </form>
+        </div>
+    </section>
+
+
+
+    <footer class="footer">
+        <div class="inner-footer">
+            <div>
+                <img class="fimg" src="../../img/logoCropWhite.png">
+                <h6 class="dream">Bringing Dreams to Life</h6>
+                <a class="mail" href="mailto:hello@FarmConnect.com">hello@FarmConnect.com</a>
+                <p class="number">+2348068963757</p>
+                <div class="social">
+                    <span><i class="fab fa-facebook-f"></i></span>
+                    <span><i class="fab fa-twitter"></i></span>
+                    <span><i class="fab fa-instagram"></i></span>
+                </div>
+            </div>
+            <div class="navigation">
+                <h2 class="navi">Navigation</h3>
+                    <a href="../u-about-us.html">About Us</a>
+                    <a href="../u-terms-of-sponsorship.html">Terms of Sponsorship</a>
+                    <a href="contact.html">Contact Us</a>
+                    <a href="../u-terms-of-use.html">Terms of Use</a>
+                    <a href="../u-privacy-policy.html">Privacy Policy</a>
+                    <a href="../u-faqs.html">FAQs</a>
+                    <a href="../u-funded.html">Funded</a>
+            </div>
+            <div class="sub">
+                <h5 class="sub-text">Subscribe</h5>
+                <div class="butgroup">
+                    <input type="text" placeholder="Email Address" aria-label="email" name="email" id="email">
+                    <button class="subbutton">Subscribe</button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <p class="copy">Copyright&copy;2020 FarmConnect. All Rights Reserved</p>
+    </footer>
+    <script src="../../js/app.js"></script>
+    <script src="../../js/product-register.js"></script>
+</body>
+
+</html>

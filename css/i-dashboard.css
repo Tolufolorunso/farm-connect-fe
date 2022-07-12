@@ -1,0 +1,18 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+    
+}
+
+.note-img {
+    width: 20px;
+    margin-top: 5px;
+}
+
+
+.apply-btn {
+    background-color: #629D25
+}
+
+.latest-title {
+    color: #629D25;
+}

@@ -1,0 +1,120 @@
+
+.img-cont {
+    display: block;
+    width: 320px;
+    margin-right: 20px;
+}
+
+.profile-img {
+    border-radius: 50%;
+    height: 35px;
+}
+
+.desc-detail {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.featured {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+.f-i-text {
+    display: block;
+    width: 80vw;
+    word-wrap: break-word;
+}
+
+.products-card-detail {
+    display: flex;
+}
+
+
+@media (min-width: 850px) {
+    .f-i-text {
+        display: block;
+        width: 50vw;
+        word-wrap: break-word;
+    }
+}
+
+@media (max-width: 1200px) and (min-width: 850px) {
+    .products-card-detail {
+        flex-direction: column;
+    }
+
+    .img-cont {
+        margin: 0;
+        align-self: center ;
+    }
+}
+
+@media (max-width: 768px) {
+    .products-card-detail {
+        flex-direction: column;
+    }
+
+    .img-cont {
+        width: 70vw;
+        align-self: center;
+        margin: 0;
+    }
+
+    .back {
+        width:50%;
+        text-align: center;
+    }
+
+    .main {
+        width:90%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.unit-invest {
+    display: flex;
+    width: 40%;
+    justify-content: space-between;
+    margin: 50px 0 0 30px;
+    text-align: center;
+}
+
+.minim {
+    margin-left: 10px;
+}
+
+.edit-del {
+    display: flex;
+    width: 50%;
+
+    margin: 0 0 30px 30px;
+}
+
+.f-i-text {
+    margin: 18px;
+}
+
+.investor-list {
+    margin: 0 30px 0 30px;
+}
+
+button.edit-del-item {
+    border: none;
+    padding: 10px ;
+    width: auto;
+}
+
+button.edit-del-item.b {
+    margin-left: 10px;
+    background-color: #ff0000;
+}
+
+.i-listed {
+    width: inherit;
+}
+
+.desc-top {
+    margin-bottom: 20px;
+}

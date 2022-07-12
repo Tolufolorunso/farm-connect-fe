@@ -1,0 +1,145 @@
+body {
+    overflow-x: hidden;
+}
+
+.signbox {
+    margin-top: 150px;
+    border: 2px solid #C4C4C4;
+    width: 100%;
+    padding-top: 0px;
+    margin-bottom: 50px;
+    padding-bottom: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    justify-content: space-between;
+}
+
+.buts {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: space-between;
+}
+
+.head-sign {
+    text-align: center;
+    color: #144A05;
+    margin-top: 70px;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.cgreen {
+    color: #144A05;
+}
+
+.signbutton {
+    border: solid #144A05 1px;
+    font-size: 25px;
+    padding: 15px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin: 0 12px 0 12px;
+    width: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.green {
+    background-color: #144A05;
+    color: white
+}
+
+.red {
+    color: red;
+    padding-left: 5px;
+}
+
+.account {
+    text-align: center;
+    font-size: 15px;
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.bg {
+    display: none;
+}
+
+@media (min-width: 640px) {
+    .signbutton {
+        width: 50%;
+    }
+}
+
+@media (min-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
+    .bg {
+        display: block;
+        position: absolute;
+        transform: translateX(-5%) translateY(-20%) scale(0.9);
+        z-index: -1;
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    .signbutton {
+        width: 30%;
+    }
+
+    .head-sign {
+        text-align: center;
+        color: #144A05;
+        margin-top: 70px;
+        font-weight: bold;
+        font-size: 40px;
+        margin-top: 90px;
+    }
+
+    .buts {
+        display: flex;
+        flex-direction: row;
+        height: unset
+    }
+
+    .signbox {
+        margin-top: 150px;
+        border: 2px solid #C4C4C4;
+        width: 70%;
+        padding-top: 0px;
+        margin-bottom: 50px;
+        padding-bottom: 50px;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        flex-direction: column;
+        height: 400px;
+        justify-content: space-between;
+    }
+}
+
+@media (min-width: 1024px) {
+    .bg {
+        display: block;
+        position: absolute;
+        transform: translateX(-10%) translateY(-40%) scale(0.9);
+        z-index: -1;
+        overflow-x: hidden;
+        width: 100%;
+    }
+
+    .signbox {
+        width:50%;
+    }
+}
+
+@media (min-width: 1280px) {}
