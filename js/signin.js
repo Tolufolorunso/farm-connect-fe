@@ -9,6 +9,7 @@ function postData(event) {
   let error = document.querySelector('.error');
 
   error.textContent = '';
+  // const url = 'https://localhost:4000/api/v1/users/login';
   const url = 'https://farmconnectng.herokuapp.com/api/v1/users/login';
 
   // post body data
@@ -30,7 +31,7 @@ function postData(event) {
   fetch(request)
     .then((res) => res.json())
     .then((res) => {
-      console.log(res);
+      console.log(34, res);
       if (res.status === 'success') {
         localStorage.setItem('farmconnectUser', res.token);
         localStorage.setItem('farmdata', JSON.stringify(res.data));
@@ -55,6 +56,13 @@ function postData(event) {
           });
         }
       }
+    })
+    .catch((err) => {
+      console.log(60, err);
+      let element = document.createElement('p');
+      element.textContent = err.message;
+      element.classList.add('error-item');
+      error.appendChild(element);
     });
 }
 

@@ -37,7 +37,7 @@ function postData(event) {
     .then((res) => res.json())
     .then((res) => {
       if (res.status === 'success') {
-        window.location.href = '/frontend/pages/farmers/apply-success.html';
+        window.location.href = '/pages/farmers/apply-success.html';
       } else {
         console.log(res);
         loader.classList.add('none');
