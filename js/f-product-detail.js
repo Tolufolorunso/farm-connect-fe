@@ -21,7 +21,6 @@
   let img = document.querySelectorAll('.imgd');
   img = Array.from(img);
   let mininvest = document.querySelector('.mininvest');
-  console.log(mininvest);
 
   let product = JSON.parse(localStorage.getItem('product'));
   if (product.amountcollected) {
@@ -29,7 +28,7 @@
   } else {
     pfund = 0;
   }
-  console.log('pr', product);
+
   producttext.map((item) => {
     item.textContent = product.name;
   });

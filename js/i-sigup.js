@@ -2,7 +2,7 @@ function postData(event) {
   event.preventDefault();
 
   let loader = document.querySelector('.loader');
-  console.log(loader);
+
   loader.classList.remove('none');
   let fullname = document.getElementById('fullname').value;
   let email = document.getElementById('email1').value;
@@ -18,6 +18,7 @@ function postData(event) {
 
   error.textContent = '';
   const url = 'https://farmconnectng.herokuapp.com/api/v1/user/signup/investor';
+  // const url = 'http://localhost:4000/api/v1/users/signup/investor';
 
   // post body data
   const user = {
@@ -48,7 +49,6 @@ function postData(event) {
       if (res.status === 'success') {
         window.location.href = '/pages/farmers/apply-success.html';
       } else {
-        console.log(res);
         loader.classList.add('none');
         error.classList.remove('none');
         res.error.map((item) => {

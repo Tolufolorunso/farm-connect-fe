@@ -57,7 +57,6 @@ function postData(event) {
         localStorage.setItem('userdata', JSON.stringify(res));
         window.location.href = '/pages/farmers/register-success.html';
       } else {
-        console.log(res);
         loader.classList.add('none');
         error.classList.remove('none');
         error.textContent = res.data.error;

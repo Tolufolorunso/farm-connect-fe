@@ -19,21 +19,26 @@
   let img = document.querySelectorAll('.imgd');
   img = Array.from(img);
   let mininvest = document.querySelector('.mininvest');
-  console.log(mininvest);
+  // console.log(mininvest);
+
+  const url = `https://farmconnectng.herokuapp.com/api/v1`;
+  // const url = `http://localhost:4000/api/v1`;
+
+  // let imageUrl = 'http://localhost:4000/uploads';
+  let imageUrl = 'https://farmconnectng.herokuapp.com/uploads';
 
   let product = JSON.parse(localStorage.getItem('product'));
-  console.log(product);
-  console.log(product.amountCollected);
-  console.log(product.amount);
-  console.log(product.amountCollected / product.amount);
+  // console.log(product);
+  // console.log(product.amountCollected);
+  // console.log(product.amount);
+  // console.log(product.amountCollected / product.amount);
 
   if (product.amountCollected > 0) {
     pfund = (product.amountCollected / product.amount) * 100;
-    console.log(pfund, 'pf');
   } else {
     pfund = 0;
   }
-  console.log('pr', product);
+
   producttext.map((item) => {
     item.textContent = product.name;
   });
@@ -57,7 +62,7 @@
     item.textContent = product.desc;
   });
   img.map((item) => {
-    item.src = product.image;
+    item.src = `${imageUrl}/${product.image}`;
   });
   mininvest.innerHTML = `<span>&#8358;${product.minvest}</span>`;
 })();
@@ -65,13 +70,12 @@
 let funddetail = document.querySelectorAll('.fund-detail');
 funddetail = Array.from(funddetail);
 let product = JSON.parse(localStorage.getItem('product'));
-let data = JSON.parse(localStorage.getItem('userdata')).data;
+let data = JSON.parse(localStorage.getItem('userdata'));
 let mim = product.minvest;
-let token = 'JWT ' + localStorage.getItem('farmvestUser').toString();
+let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
 let invest = document.querySelector('now');
 let invest1 = document.getElementById('invest1');
-console.log(invest1);
-console.log(invest);
+
 let amountcollected = product.amountCollected;
 funddetail.map((newitem) => {
   if (product.amount === product.amountCollected) {
@@ -93,8 +97,8 @@ function payWithPaystack() {
   }
   let payamount = amount * 100;
   var handler = PaystackPop.setup({
-    key: 'pk_test_a6f33818c268b25937dc006d2fb349eedb94f4da',
-    email: data.investor.email,
+    key: 'pk_test_ab5e989518814ccdaebff2ebda9a81462de717e7',
+    email: data.email,
     amount: payamount,
     currency: 'NGN',
     ref: '' + Math.floor(Math.random() * 1000000000 + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
@@ -103,12 +107,12 @@ function payWithPaystack() {
         {
           display_name: 'Mobile Number',
           variable_name: 'mobile_number',
-          value: data.investor.phoneNumber,
+          value: data.phoneNumber,
         },
       ],
     },
     callback: function (response) {
-      const url = 'https://farmconnectng.herokuapp.com/api/v1/investment';
+      const url = `${url}/investment`;
       // post body data
       const investment = {
         investor: data.investor._id,
@@ -119,8 +123,6 @@ function payWithPaystack() {
         amountInvested: amount,
         ref: response.reference,
       };
-
-      console.log(investment);
 
       // create request object
       const request = new Request(url, {
@@ -140,7 +142,6 @@ function payWithPaystack() {
           if (res.status === 'success') {
             window.location.href = '/pages/farmers/register-success.html';
           } else {
-            console.log(res);
             loader.classList.add('none');
             error.classList.remove('none');
           }

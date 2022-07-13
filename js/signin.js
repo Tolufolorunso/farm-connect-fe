@@ -33,7 +33,7 @@ async function postData(event) {
     }
 
     const res = await resp.json();
-    console.log(res);
+
     if (res.status === 'success') {
       localStorage.setItem('farmconnectUser', res.token);
       localStorage.setItem('farmdata', JSON.stringify(res.user));
@@ -59,8 +59,8 @@ async function postData(event) {
       }
     }
   } catch (err) {
-    console.log(err);
-    console.log(60, err.message);
+    // console.log(err);
+    // console.log(60, err.message);
     let element = document.createElement('p');
     element.textContent = err.message;
     element.classList.add('error-item');

@@ -18,6 +18,12 @@ let loader = document.querySelector('.loader');
 let slide3 = document.getElementById('side-slide');
 let slideclose3 = document.querySelector('.side-close');
 
+const url = `https://farmconnectng.herokuapp.com/api/v1`;
+// const url = `http://localhost:4000/api/v1`;
+
+// let imageUrl = 'http://localhost:4000/uploads';
+let imageUrl = 'https://farmconnectng.herokuapp.com/uploads';
+
 const sideBarOpen1 = () => {
   main.classList.remove('width1');
   document.getElementById('side-bar').classList.remove('anima2', 'move');
@@ -69,21 +75,20 @@ products.map((item) => {
 });
 
 (function () {
-  console.log('working');
   let user = JSON.parse(localStorage.getItem('farmdata'));
-  let id = user['id'];
+  let id = user['_id'];
   let text = localStorage.getItem('farmconnectUser').toString();
   let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
   let userdata = JSON.parse(localStorage.getItem('userdata'));
 
   if (userdata) {
-    profileName.textContent = userdata.data.investor.name;
-    profileName1.textContent = userdata.data.investor.name;
+    profileName.textContent = userdata.name;
+    profileName1.textContent = userdata.name;
     profileImage.map((item) => {
-      item.src = userdata.data.investor.image;
+      item.src = `${imageUrl}/${userdata.image}`;
     });
   } else {
-    fetch(`https://farmconnectng.herokuapp.com/api/v1/user/investors/${id}`, {
+    fetch(`${url}/users/investors/${id}`, {
       method: 'GET',
       withCredentials: true,
       headers: {
@@ -91,14 +96,18 @@ products.map((item) => {
       },
     })
       .then((res) => res.json())
-      .then((user) => {
-        console.log(user);
-        if (user) {
+      .then(({ data }) => {
+        if (data) {
           localStorage.setItem('userdata', JSON.stringify(user));
-          profileName.textContent = user.data.investor.name;
-          profileName1.textContent = user.data.investor.name;
+          profileName.textContent = data.investor.name;
+          profileName1.textContent = data.investor.name;
+
           profileImage.map((item) => {
-            item.src = user.data.investor.image;
+            item.src = `${
+              data.investor.image
+                ? 'uploads' + data.investor.image
+                : '../img/profile-img.svg'
+            }`;
           });
         } else {
           profileName.textContent = '';
@@ -110,7 +119,7 @@ products.map((item) => {
       });
   }
 
-  fetch(`https://farmconnectng.herokuapp.com/api/v1/products/`, {
+  fetch(`${url}/products/`, {
     method: 'GET',
     withCredentials: true,
     headers: {
@@ -125,7 +134,7 @@ products.map((item) => {
         let productCard = document.createElement('div');
         productCard.classList.add('products-card');
         let image = document.createElement('img');
-        image.src = item.image;
+        image.src = `${imageUrl}/${item.image}`;
         let desc = document.createElement('div');
         desc.classList.add('desc');
         let h6 = document.createElement('h6');
@@ -174,7 +183,7 @@ products.map((item) => {
           id: item.dataset.id,
           amountCollected: item.dataset.amountcollected,
         };
-        console.log(data, 'here');
+
         localStorage.setItem('product', JSON.stringify(data));
         window.location.href = '../investors/i-product-detail.html';
       };

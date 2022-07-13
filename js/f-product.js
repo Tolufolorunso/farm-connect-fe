@@ -2,7 +2,6 @@
 let imageUrl = 'https://farmconnectng.herokuapp.com/uploads/';
 
 let logoutbutton = document.querySelector('.dashb');
-console.log('here');
 let nav2 = document.querySelector('.navbar');
 let ham2 = document.querySelector('.ham');
 let main = document.querySelector('.main');
@@ -13,7 +12,6 @@ profileImage = Array.from(profileImage);
 let featitems = document.querySelector('.feat-items');
 let loader = document.querySelector('.loader');
 loader.classList.remove('none2');
-console.log('here');
 
 let slide2 = document.getElementById('side-slide');
 let slideclose1 = document.querySelector('.side-close');
@@ -68,8 +66,6 @@ ham2.addEventListener('click', toogleHam2);
   let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
   let userdata = JSON.parse(localStorage.getItem('userdata'));
 
-  console.log(userdata);
-
   if (userdata) {
     profileName.textContent = userdata.farmer.name;
     profileName1.textContent = userdata.farmer.name;
@@ -88,7 +84,6 @@ ham2.addEventListener('click', toogleHam2);
     })
       .then((res) => res.json())
       .then((user) => {
-        console.log(user);
         if (user) {
           localStorage.setItem('userdata', JSON.stringify(user));
           profileName.textContent = user.data.farmer.name;
@@ -119,10 +114,9 @@ ham2.addEventListener('click', toogleHam2);
     .then((res) => res.json())
     .then((user) => {
       let arr = user.data;
-      console.log(arr);
+
       loader.classList.add('none2');
       arr.map((item) => {
-        console.log(item);
         let productCard = document.createElement('div');
         productCard.classList.add('products-card');
         let image = document.createElement('img');

@@ -18,7 +18,7 @@ function postData(event) {
   let returns = document.getElementById('returns').value;
   let invest = document.getElementById('invest').value;
   let fileupload = document.getElementById('fileupload').files[0];
-  console.log(fileupload);
+
   let farmloc = document.getElementById('farmloc').value;
   let projectdesc = document.getElementById('projectdesc').value;
 
@@ -38,7 +38,7 @@ function postData(event) {
   const url = 'https://farmconnectng.herokuapp.com/api/v1/products';
   // const url = 'http://localhost:4000/api/v1/products';
 
-  console.log(formData);
+  // console.log(formData);
   let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
 
   // create request object
@@ -55,11 +55,9 @@ function postData(event) {
   fetch(request)
     .then((res) => res.json())
     .then((res) => {
-      console.log(58, res);
       if (res.status === 'success') {
         window.location.href = '/pages/farmers/register-success.html';
       } else {
-        console.log(res);
         loader.classList.add('none');
         error.classList.remove('none');
         error.textContent = res.data.error;

@@ -1,5 +1,5 @@
 let logoutbutton = document.querySelector('.dashb');
-console.log('here');
+
 let nav2 = document.querySelector('.navbar');
 let ham2 = document.querySelector('.ham');
 let main = document.querySelector('.main');
@@ -7,14 +7,18 @@ let profileName = document.querySelector('.profile-name');
 let profileName1 = document.querySelector('.profile-name1');
 let profileImage = document.querySelectorAll('.profile-img');
 profileImage = Array.from(profileImage);
-console.log(profileImage);
 let featitems = document.querySelector('.feat-items');
 let loader = document.querySelector('.loader');
 loader.classList.remove('none2');
-console.log('here');
 
 let slide2 = document.getElementById('side-slide');
 let slideclose1 = document.querySelector('.side-close');
+
+const url = `https://farmconnectng.herokuapp.com/api/v1`;
+// const url = `http://localhost:4000/api/v1`;
+
+// let imageUrl = 'http://localhost:4000/uploads';
+let imageUrl = 'https://farmconnectng.herokuapp.com/uploads';
 
 const sideBarOpen1 = () => {
   main.classList.remove('width1');
@@ -61,19 +65,19 @@ ham2.addEventListener('click', toogleHam2);
 
 (function () {
   let user = JSON.parse(localStorage.getItem('farmdata'));
-  let id = user['id'];
+  let id = user['_id'];
   let text = localStorage.getItem('farmconnectUser').toString();
   let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
   let userdata = JSON.parse(localStorage.getItem('userdata'));
-  console.log(userdata);
+
   if (userdata) {
-    profileName.textContent = userdata.data.investor.name;
-    profileName1.textContent = userdata.data.investor.name;
+    profileName.textContent = userdata.name;
+    profileName1.textContent = userdata.name;
     profileImage.map((item) => {
-      item.src = userdata.data.investor.image;
+      item.src = `${imageUrl}/${userdata.image}`;
     });
   } else {
-    fetch(`https://farmconnectng.herokuapp.com/api/v1/user/farmers/${id}`, {
+    fetch(`${url}/users/farmers/${id}`, {
       method: 'GET',
       withCredentials: true,
       headers: {
@@ -87,7 +91,7 @@ ham2.addEventListener('click', toogleHam2);
           profileName.textContent = user.data.farmer.name;
           profileName1.textContent = user.data.farmer.name;
           profileImage.map((item) => {
-            item.src = user.data.farmer.image;
+            item.src = `${imageUrl}/${user.data.farmer.image}`;
           });
         } else {
           profileName.textContent = '';
@@ -99,7 +103,7 @@ ham2.addEventListener('click', toogleHam2);
       });
   }
 
-  fetch('https://farmconnectng.herokuapp.com/api/v1/products', {
+  https: fetch(`${url}/products`, {
     method: 'GET',
     withCredentials: true,
     headers: {
@@ -114,7 +118,7 @@ ham2.addEventListener('click', toogleHam2);
         let productCard = document.createElement('div');
         productCard.classList.add('products-card');
         let image = document.createElement('img');
-        image.src = item.image;
+        image.src = `${imageUrl}/${item.image}`;
         let desc = document.createElement('div');
         desc.classList.add('desc');
         let h6 = document.createElement('h6');

@@ -1,11 +1,16 @@
-let userdata = JSON.parse(localStorage.getItem('userdata'));
-let data = userdata.data;
-console.log(data);
-document.getElementById('phone').value = data.investor.phoneNumber;
-document.getElementById('name').value = data.investor.name;
-document.getElementById('email1').value = data.investor.email;
-document.getElementById('gender').value = data.investor.gender || '';
-document.getElementById('state').value = data.investor.state || '';
+let user = JSON.parse(localStorage.getItem('userdata'));
+
+document.getElementById('phone').value = user.phoneNumber;
+document.getElementById('name').value = user.name;
+document.getElementById('email1').value = user.email;
+document.getElementById('gender').value = user.gender || '';
+document.getElementById('state').value = user.state || '';
+
+const url = `https://farmconnectng.herokuapp.com/api/v1`;
+// let url = `http://localhost:4000/api/v1`;
+
+// let imageUrl = 'http://localhost:4000/uploads';
+let imageUrl = 'https://farmconnectng.herokuapp.com/uploads';
 
 function postData(event) {
   event.preventDefault();
@@ -29,15 +34,14 @@ function postData(event) {
 
   let error = document.querySelector('.error');
   let user = JSON.parse(localStorage.getItem('farmdata'));
-  let id = user.id;
+  let id = user._id;
 
   error.textContent = '';
-  const url = `https://farmconnectng.herokuapp.com/api/v1/user/profile/investor/${id}`;
 
   let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
 
   // create request object
-  const request = new Request(url, {
+  const request = new Request(`${url}/users/profile/investor/${id}`, {
     method: 'PATCH',
     withCredentials: true,
     body: formData,
@@ -50,11 +54,10 @@ function postData(event) {
   fetch(request)
     .then((res) => res.json())
     .then((res) => {
-      if (res.status === 'success') {
-        localStorage.setItem('userdata', JSON.stringify(res));
+      if (res.status) {
+        localStorage.setItem('userdata', JSON.stringify(res.data.investor));
         window.location.href = '/pages/farmers/register-success.html';
       } else {
-        console.log(res);
         loader.classList.add('none');
         error.classList.remove('none');
         error.textContent = res.data.error;
@@ -63,3 +66,12 @@ function postData(event) {
 }
 
 document.getElementById('profileid').addEventListener('submit', postData);
+
+let logout = () => {
+  localStorage.removeItem('farmconnectUser');
+  localStorage.removeItem('farmdata');
+  localStorage.removeItem('userdata');
+  window.location.href = '../../index.html';
+};
+
+document.querySelector('.dashb').addEventListener('click', logout);

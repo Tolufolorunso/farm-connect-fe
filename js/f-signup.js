@@ -39,7 +39,6 @@ function postData(event) {
       if (res.status === 'success') {
         window.location.href = '/pages/farmers/apply-success.html';
       } else {
-        console.log(res);
         loader.classList.add('none');
         error.classList.remove('none');
         res.error.map((item) => {

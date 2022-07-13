@@ -1,6 +1,5 @@
 let ham = document.querySelector('.ham');
 let ham1 = document.querySelector('.ham1');
-console.log(ham1);
 let nav = document.querySelector('.navbar');
 let arrleft = document.querySelector('.arrow-left');
 let arrright = document.querySelector('.arrow-right');
@@ -11,7 +10,6 @@ let text = document.querySelector('.text');
 let details = document.querySelector('.details');
 
 const toogleHam = () => {
-  console.log('toggle');
   if (nav.classList.contains('animation1')) {
     ham.classList.remove('ham', 'fa-times');
     ham.classList.add('ham', 'fa-bars');
@@ -64,7 +62,6 @@ const slidefun = () => {
 
 const slidefun2 = () => {
   track--;
-  console.log(track);
   if (track === -1) {
     track = 2;
   }

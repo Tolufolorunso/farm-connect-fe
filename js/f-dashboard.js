@@ -1,5 +1,5 @@
 let logoutbutton = document.querySelector('.dashb');
-console.log('here');
+
 let nav2 = document.querySelector('.navbar');
 let ham2 = document.querySelector('.ham');
 let main = document.querySelector('.main');
@@ -65,7 +65,7 @@ ham2.addEventListener('click', toogleHam2);
   let id = user['_id'];
   let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
   let userdata = JSON.parse(localStorage.getItem('userdata'));
-  console.log(userdata);
+
   if (userdata) {
     profileName.textContent = userdata.farmer.name;
     profileName1.textContent = userdata.farmer.name;
@@ -84,13 +84,11 @@ ham2.addEventListener('click', toogleHam2);
     })
       .then((res) => res.json())
       .then(({ data }) => {
-        console.log(84, data);
-        console.log(id);
         if (data) {
           localStorage.setItem('userdata', JSON.stringify(data));
           profileName.textContent = data.farmer.name;
           profileName1.textContent = data.farmer.name;
-          console.log(profileImage.src);
+
           profileImage.map((item) => {
             item.src = `${imageUrl}/${data.farmer.image}`;
           });
@@ -117,7 +115,6 @@ ham2.addEventListener('click', toogleHam2);
     .then((res) => res.json())
     .then((user) => {
       let arr = user.data.slice(0, 4);
-      console.log(arr);
       loader.classList.add('none2');
       arr.map((item) => {
         let productCard = document.createElement('div');
