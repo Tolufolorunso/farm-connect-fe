@@ -54,7 +54,7 @@
             <!-- <a href="" class="nav-item item ditem a">Investors</a> -->
             <!-- <a href="#index.html" class="nav-item item a">Training</a>
             <a href="#index.html" class="nav-item item a">Mentorship</a> -->
-            <a href="#index.html" class="nav-item item ditem a">FAQs</a>
+            <a href="../u-faqs.html" class="nav-item item ditem a">FAQs</a>
             <button class=" dashb nav-item item a last">Log Out</button>
         </aside>
         <main class="main">
@@ -145,6 +145,7 @@
     </footer>
     <script>
          (function () {
+            console.log(localStorage.getItem("farmconnectUser"));
              if (!localStorage.getItem("farmconnectUser")) {
                  window.location.href = "../../index.html";
              }else {
@@ -154,7 +155,7 @@
                      window.location.href = "/pages/investors/i-dashboard.html";
                  }
              }
-         })
+         })()
     </script>
     <script src="../../js/app.js"></script>
     <script src="../../js/f-dashboard.js"></script>

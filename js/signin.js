@@ -1,4 +1,4 @@
-function postData(event) {
+async function postData(event) {
   event.preventDefault();
 
   let loader = document.querySelector('.loader');
@@ -9,8 +9,8 @@ function postData(event) {
   let error = document.querySelector('.error');
 
   error.textContent = '';
-  // const url = 'https://localhost:4000/api/v1/users/login';
-  const url = 'https://farmconnectng.herokuapp.com/api/v1/users/login';
+  const url = 'http://localhost:4000/api/v1/users/login';
+  // const url = 'https://farmconnectng.herokuapp.com/api/v1/users/login';
 
   // post body data
   const user = {
@@ -18,52 +18,54 @@ function postData(event) {
     password: password,
   };
 
-  // create request object
-  const request = new Request(url, {
-    method: 'POST',
-    body: JSON.stringify(user),
-    headers: new Headers({
-      'Content-Type': 'application/json',
-    }),
-  });
-
-  // pass request object to `fetch()`
-  fetch(request)
-    .then((res) => res.json())
-    .then((res) => {
-      console.log(34, res);
-      if (res.status === 'success') {
-        localStorage.setItem('farmconnectUser', res.token);
-        localStorage.setItem('farmdata', JSON.stringify(res.data));
-        if (res.data.role === 'investor') {
-          window.location.href = '/pages/investors/i-dashboard.html';
-        } else if (res.data.role === 'farmer') {
-          window.location.href = '/pages/farmers/f-dashboard.html';
-        }
-      } else {
-        if (res.data) {
-          loader.classList.add('none');
-          error.classList.remove('none');
-          error.textContent = res.data.error;
-        } else {
-          loader.classList.add('none');
-          error.classList.remove('none');
-          res.error.map((item) => {
-            let element = document.createElement('p');
-            element.textContent = item.message;
-            element.classList.add('error-item');
-            error.appendChild(element);
-          });
-        }
-      }
-    })
-    .catch((err) => {
-      console.log(60, err);
-      let element = document.createElement('p');
-      element.textContent = err.message;
-      element.classList.add('error-item');
-      error.appendChild(element);
+  try {
+    const resp = await fetch(url, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
     });
+    if (!resp.ok) {
+      const msg = `There was an error "${resp.status} ${resp.statusText}"`;
+      throw new Error(msg);
+    }
+
+    const res = await resp.json();
+    console.log(res);
+    if (res.status === 'success') {
+      localStorage.setItem('farmconnectUser', res.token);
+      localStorage.setItem('farmdata', JSON.stringify(res.user));
+      if (res.user.role === 'investor') {
+        window.location.href = '/pages/investors/i-dashboard.html';
+      } else if (res.user.role === 'farmer') {
+        window.location.href = '/pages/farmers/f-dashboard.html';
+      }
+    } else {
+      if (res.data) {
+        loader.classList.add('none');
+        error.classList.remove('none');
+        error.textContent = res.data.error;
+      } else {
+        loader.classList.add('none');
+        error.classList.remove('none');
+        res.error.map((item) => {
+          let element = document.createElement('p');
+          element.textContent = item.message;
+          element.classList.add('error-item');
+          error.appendChild(element);
+        });
+      }
+    }
+  } catch (err) {
+    console.log(err);
+    console.log(60, err.message);
+    let element = document.createElement('p');
+    element.textContent = err.message;
+    element.classList.add('error-item');
+    error.appendChild(element);
+  }
 }
 
 document.getElementById('flogin').addEventListener('submit', postData);

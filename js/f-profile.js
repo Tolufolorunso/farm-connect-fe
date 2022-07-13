@@ -1,11 +1,13 @@
 let userdata = JSON.parse(localStorage.getItem('userdata'));
-let data = userdata.data;
-console.log(data);
-document.getElementById('phone').value = data.farmer.phoneNumber;
-document.getElementById('name').value = data.farmer.name;
-document.getElementById('email1').value = data.farmer.email;
-document.getElementById('gender').value = data.farmer.gender || '';
-document.getElementById('state').value = data.farmer.state || '';
+
+document.getElementById('phone').value = userdata.farmer.phoneNumber;
+document.getElementById('name').value = userdata.farmer.name;
+document.getElementById('email1').value = userdata.farmer.email;
+document.getElementById('gender').value = userdata.farmer.gender || '';
+document.getElementById('state').value = userdata.farmer.state || '';
+
+// let imageUrl = 'http://localhost:4000/uploads/';
+let imageUrl = 'https://farmconnectng.herokuapp.com/uploads/';
 
 function postData(event) {
   event.preventDefault();
@@ -29,10 +31,11 @@ function postData(event) {
 
   let error = document.querySelector('.error');
   let user = JSON.parse(localStorage.getItem('farmdata'));
-  let id = user.id;
+  let id = user._id;
 
   error.textContent = '';
-  const url = `https://farmconnectng.herokuapp.com/api/v1/user/profile/farmer/${id}`;
+  const url = `https://farmconnectng.herokuapp.com/api/v1/users/profile/farmers/${id}`;
+  // const url = `http://localhost:4000/api/v1/users/profile/farmers/${id}`;
 
   let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
 

@@ -14,6 +14,9 @@ loader.classList.remove('none2');
 let slide2 = document.getElementById('side-slide');
 let slideclose1 = document.querySelector('.side-close');
 
+// let imageUrl = 'http://localhost:4000/uploads';
+let imageUrl = 'https://farmconnectng.herokuapp.com/uploads';
+
 const sideBarOpen1 = () => {
   main.classList.remove('width1');
   document.getElementById('side-bar').classList.remove('anima2', 'move');
@@ -59,20 +62,20 @@ ham2.addEventListener('click', toogleHam2);
 
 (function () {
   let user = JSON.parse(localStorage.getItem('farmdata'));
-  let id = user['id'];
+  let id = user['_id'];
   let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
   let userdata = JSON.parse(localStorage.getItem('userdata'));
   console.log(userdata);
   if (userdata) {
-    console.log('another');
-    profileName.textContent = userdata.data.farmer.name;
-    profileName1.textContent = userdata.data.farmer.name;
-    console.log(profileImage);
+    profileName.textContent = userdata.farmer.name;
+    profileName1.textContent = userdata.farmer.name;
     profileImage.map((item) => {
-      item.src = userdata.data.farmer.image;
+      item.src = `${imageUrl}/${userdata.farmer.image}`;
     });
   } else {
-    fetch(`https://farmconnectng.herokuapp.com/api/v1/user/farmers/${id}`, {
+    const url = `https://farmconnectng.herokuapp.com/api/v1/users/farmers/${id}`;
+    // const url = `http://localhost:4000/api/v1/users/farmers/${id}`;
+    fetch(url, {
       method: 'GET',
       withCredentials: true,
       headers: {
@@ -80,15 +83,16 @@ ham2.addEventListener('click', toogleHam2);
       },
     })
       .then((res) => res.json())
-      .then((user) => {
-        console.log(user);
-        if (user) {
-          localStorage.setItem('userdata', JSON.stringify(user));
-          profileName.textContent = user.data.farmer.name;
-          profileName1.textContent = user.data.farmer.name;
+      .then(({ data }) => {
+        console.log(84, data);
+        console.log(id);
+        if (data) {
+          localStorage.setItem('userdata', JSON.stringify(data));
+          profileName.textContent = data.farmer.name;
+          profileName1.textContent = data.farmer.name;
           console.log(profileImage.src);
           profileImage.map((item) => {
-            item.src = user.data.farmer.image;
+            item.src = `${imageUrl}/${data.farmer.image}`;
           });
         } else {
           profileName.textContent = '';
@@ -100,7 +104,10 @@ ham2.addEventListener('click', toogleHam2);
       });
   }
 
-  fetch(`https://farmconnectng.herokuapp.com/api/v1/products/${id}`, {
+  let productsUrl = 'https://farmconnectng.herokuapp.com/api/v1/products';
+  // let productsUrl = 'http://localhost:4000/api/v1/products';
+
+  fetch(`${productsUrl}`, {
     method: 'GET',
     withCredentials: true,
     headers: {
@@ -116,7 +123,7 @@ ham2.addEventListener('click', toogleHam2);
         let productCard = document.createElement('div');
         productCard.classList.add('products-card');
         let image = document.createElement('img');
-        image.src = item.image;
+        image.src = `${imageUrl}/${item.image}`;
         let desc = document.createElement('div');
         desc.classList.add('desc');
         let h6 = document.createElement('h6');

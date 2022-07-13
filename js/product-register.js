@@ -35,7 +35,8 @@ function postData(event) {
   let error = document.querySelector('.error');
 
   error.textContent = '';
-  const url = 'https://farmconnectng.herokuapp.com/api/v1/products';
+  // const url = 'https://farmconnectng.herokuapp.com/api/v1/products';
+  const url = 'http://localhost:4000/api/v1/products';
 
   console.log(formData);
   let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
@@ -54,6 +55,7 @@ function postData(event) {
   fetch(request)
     .then((res) => res.json())
     .then((res) => {
+      console.log(58, res);
       if (res.status === 'success') {
         window.location.href = '/pages/farmers/register-success.html';
       } else {
