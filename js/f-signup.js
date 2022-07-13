@@ -11,8 +11,8 @@ function postData(event) {
   let error = document.querySelector('.error');
 
   error.textContent = '';
-  const url = 'http://localhost:4000/api/v1/users/signup/farmer';
-  // const url = 'https://farmconnectng.herokuapp.com/api/v1/users/signup/farmer';
+  // const url = 'http://localhost:4000/api/v1/users/signup/farmer';
+  const url = 'https://farmconnectng.herokuapp.com/api/v1/users/signup/farmer';
 
   // post body data
   const user = {

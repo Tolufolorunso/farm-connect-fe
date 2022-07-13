@@ -9,8 +9,8 @@ async function postData(event) {
   let error = document.querySelector('.error');
 
   error.textContent = '';
-  const url = 'http://localhost:4000/api/v1/users/login';
-  // const url = 'https://farmconnectng.herokuapp.com/api/v1/users/login';
+  // const url = 'http://localhost:4000/api/v1/users/login';
+  const url = 'https://farmconnectng.herokuapp.com/api/v1/users/login';
 
   // post body data
   const user = {
