@@ -67,7 +67,7 @@ let product = JSON.parse(localStorage.getItem('product'));
 let data = JSON.parse(localStorage.getItem('userdata'));
 let mim = product.minvest;
 let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
-let invest = document.querySelector('now');
+let invest = document.querySelector('.now');
 let invest1 = document.getElementById('invest1');
 
 let amountcollected = product.amountCollected;
@@ -108,7 +108,7 @@ function payWithPaystack() {
     callback: function (response) {
       // post body data
       const investment = {
-        investor: data.investor._id,
+        investor: data._id,
         name: product.name,
         returns: product.returns,
         duration: product.duration,
@@ -116,6 +116,10 @@ function payWithPaystack() {
         amountInvested: amount,
         ref: response.reference,
       };
+
+      console.log(response);
+      console.log(investment);
+      console.log(data);
 
       // create request object
       const request = new Request(`${APIUrl}/investment`, {
@@ -132,7 +136,7 @@ function payWithPaystack() {
       fetch(request)
         .then((res) => res.json())
         .then((res) => {
-          if (res.status === 'success') {
+          if (res.status) {
             window.location.href = '/pages/farmers/register-success.html';
           } else {
             loader.classList.add('none');

@@ -50,6 +50,7 @@ let logout = () => {
   localStorage.removeItem('farmvestUser');
   localStorage.removeItem('farmdata');
   localStorage.removeItem('userdata');
+  localStorage.removeItem('product');
   window.location.href = '../../index.html';
 };
 
@@ -67,7 +68,8 @@ ham2.addEventListener('click', toogleHam2);
     profileName.textContent = userdata.farmer.name;
     profileName1.textContent = userdata.farmer.name;
     profileImage.map((item) => {
-      item.src = `${imageUrl}/${userdata.farmer.image}`;
+      let image = `${imageUrl}/${userdata.farmer.image}`;
+      item.src = `${userdata.farmer.image ? image : '../img/profile-img.svg'}`;
     });
   } else {
     fetch(`${APIUrl}/users/profile/farmers/${id}`, {
@@ -84,7 +86,8 @@ ham2.addEventListener('click', toogleHam2);
           profileName.textContent = user.data.farmer.name;
           profileName1.textContent = user.data.farmer.name;
           profileImage.map((item) => {
-            item.src = user.data.farmer.image;
+            let image = user.data.farmer.image;
+            item.src = image ? image : '../img/profile-img.svg';
           });
         } else {
           profileName.textContent = '';

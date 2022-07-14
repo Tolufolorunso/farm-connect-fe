@@ -65,6 +65,7 @@ let logout = () => {
   localStorage.removeItem('farmconnectUser');
   localStorage.removeItem('farmdata');
   localStorage.removeItem('userdata');
+  localStorage.removeItem('product');
   window.location.href = '../../index.html';
 };
 

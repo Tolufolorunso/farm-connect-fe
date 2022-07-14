@@ -55,6 +55,7 @@ let logout = () => {
   localStorage.removeItem('farmvestUser');
   localStorage.removeItem('farmdata');
   localStorage.removeItem('userdata');
+  localStorage.removeItem('product');
   window.location.href = '../../index.html';
 };
 
@@ -79,7 +80,12 @@ products.map((item) => {
     profileName.textContent = userdata.name;
     profileName1.textContent = userdata.name;
     profileImage.map((item) => {
-      item.src = `${imageUrl}/${userdata.image}`;
+      // ${imageUrl}/${userdata.image}
+      item.src = `${
+        userdata.image
+          ? imageUrl + '/' + userdata.image
+          : '../img/profile-img.svg'
+      }`;
     });
   } else {
     fetch(`${APIUrl}/users/investors/${id}`, {
@@ -123,7 +129,10 @@ products.map((item) => {
     .then((res) => res.json())
     .then((user) => {
       let arr = user.data.slice(0, 4);
-      loader.classList.add('none2');
+      if (loader) {
+        loader.classList.add('none2');
+      }
+      console.log('here');
       arr.map((item) => {
         let productCard = document.createElement('div');
         productCard.classList.add('products-card');

@@ -51,6 +51,7 @@ let logout = () => {
   localStorage.removeItem('farmconnectUser');
   localStorage.removeItem('farmdata');
   localStorage.removeItem('userdata');
+  localStorage.removeItem('product');
   window.location.href = '../../index.html';
 };
 
@@ -139,7 +140,9 @@ ham2.addEventListener('click', toogleHam2);
 
         productCard.appendChild(image);
         productCard.appendChild(desc);
-        featitems.appendChild(productCard);
+        if (featitems) {
+          featitems.appendChild(productCard);
+        }
       });
 
       let products = document.querySelectorAll('.products-card');
@@ -167,6 +170,6 @@ ham2.addEventListener('click', toogleHam2);
       });
     })
     .catch((err) => {
-      console.log(err);
+      console.log(err.message);
     });
 })();

@@ -33,6 +33,7 @@ async function postData(event) {
     const res = await resp.json();
 
     if (res.status === 'success') {
+      console.log(res.user);
       localStorage.setItem('farmconnectUser', res.token);
       localStorage.setItem('farmdata', JSON.stringify(res.user));
       if (res.user.role === 'investor') {

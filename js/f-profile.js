@@ -5,6 +5,16 @@ document.getElementById('name').value = userdata.farmer.name;
 document.getElementById('email1').value = userdata.farmer.email;
 document.getElementById('gender').value = userdata.farmer.gender || '';
 document.getElementById('state').value = userdata.farmer.state || '';
+document.getElementById('fileupload').innerHTML = userdata.farmer.image || '';
+// document
+//   .getElementById('fileupload')
+//   .setAttribute('value', userdata.farmer.image || '');
+document
+  .getElementById('profileImg')
+  .setAttribute(
+    'src',
+    `${imageUrl}/${userdata.farmer.image}` || '../img/profile-img.svg'
+  );
 
 function postData(event) {
   event.preventDefault();
@@ -48,8 +58,8 @@ function postData(event) {
   fetch(request)
     .then((res) => res.json())
     .then((res) => {
-      if (res.status === 'success') {
-        localStorage.setItem('userdata', JSON.stringify(res));
+      if (res.status) {
+        localStorage.setItem('userdata', JSON.stringify(res.data));
         window.location.href = '/pages/farmers/register-success.html';
       } else {
         loader.classList.add('none');

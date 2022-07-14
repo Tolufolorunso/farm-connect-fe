@@ -63,10 +63,12 @@
                     <span href="" class="filter-text">Update your Profile Details</span>
                 </div>
             </div>
-
             <form class="form" id="profileid">
                 <!-- <div href="" class="filter-text sect">Personal Details</div> -->
                 <div class="form-input">
+                    <div>
+                        <img src="../../img/profile-img.svg" id="profileImg" alt="" style="height: 100px;width:100px; border-radius: 50%;border: 3px solid #ccc">
+                    </div>
                     <div>
                         <label for="">Full Name</label>
                         <input type="text" class="input-farm" aria-label="farm-name" placeholder="Full Name" name="farm-name" id="name" required>
@@ -145,7 +147,6 @@
     </footer>
     <script>
          (function () {
-            console.log(localStorage.getItem("farmconnectUser"));
              if (!localStorage.getItem("farmconnectUser")) {
                  window.location.href = "../../index.html";
              }else {
