@@ -1,5 +1,3 @@
-// let imageUrl = 'http://localhost:4000/uploads';
-// let imageUrl = 'https://farmconnectng.herokuapp.com/uploads';
 (function () {
   let pfund;
   let producttext = document.querySelectorAll('.name');

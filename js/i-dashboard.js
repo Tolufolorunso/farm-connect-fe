@@ -18,12 +18,6 @@ let loader = document.querySelector('.loader');
 let slide3 = document.getElementById('side-slide');
 let slideclose3 = document.querySelector('.side-close');
 
-const url = `https://farmconnectng.herokuapp.com/api/v1`;
-// const url = `http://localhost:4000/api/v1`;
-
-// let imageUrl = 'http://localhost:4000/uploads';
-let imageUrl = 'https://farmconnectng.herokuapp.com/uploads';
-
 const sideBarOpen1 = () => {
   main.classList.remove('width1');
   document.getElementById('side-bar').classList.remove('anima2', 'move');
@@ -88,7 +82,7 @@ products.map((item) => {
       item.src = `${imageUrl}/${userdata.image}`;
     });
   } else {
-    fetch(`${url}/users/investors/${id}`, {
+    fetch(`${APIUrl}/users/investors/${id}`, {
       method: 'GET',
       withCredentials: true,
       headers: {
@@ -119,7 +113,7 @@ products.map((item) => {
       });
   }
 
-  fetch(`${url}/products/`, {
+  fetch(`${APIUrl}/products/`, {
     method: 'GET',
     withCredentials: true,
     headers: {

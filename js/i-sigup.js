@@ -17,8 +17,6 @@ function postData(event) {
   let error = document.querySelector('.error');
 
   error.textContent = '';
-  const url = 'https://farmconnectng.herokuapp.com/api/v1/user/signup/investor';
-  // const url = 'http://localhost:4000/api/v1/users/signup/investor';
 
   // post body data
   const user = {
@@ -34,7 +32,7 @@ function postData(event) {
   };
 
   // create request object
-  const request = new Request(url, {
+  const request = new Request(`${APIUrl}/users/signup/investor`, {
     method: 'POST',
     body: JSON.stringify(user),
     headers: new Headers({

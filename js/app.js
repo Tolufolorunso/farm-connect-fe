@@ -79,5 +79,5 @@ if (arrleft) {
   arrleft.addEventListener('click', slidefun2);
 }
 
-sideBarOpen();
-sideBarClose();
+// sideBarOpen();
+// sideBarClose();

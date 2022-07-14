@@ -6,12 +6,6 @@ document.getElementById('email1').value = user.email;
 document.getElementById('gender').value = user.gender || '';
 document.getElementById('state').value = user.state || '';
 
-const url = `https://farmconnectng.herokuapp.com/api/v1`;
-// let url = `http://localhost:4000/api/v1`;
-
-// let imageUrl = 'http://localhost:4000/uploads';
-let imageUrl = 'https://farmconnectng.herokuapp.com/uploads';
-
 function postData(event) {
   event.preventDefault();
 
@@ -41,7 +35,7 @@ function postData(event) {
   let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
 
   // create request object
-  const request = new Request(`${url}/users/profile/investor/${id}`, {
+  const request = new Request(`${APIUrl}/users/profile/investor/${id}`, {
     method: 'PATCH',
     withCredentials: true,
     body: formData,

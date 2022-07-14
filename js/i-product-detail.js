@@ -21,12 +21,6 @@
   let mininvest = document.querySelector('.mininvest');
   // console.log(mininvest);
 
-  const url = `https://farmconnectng.herokuapp.com/api/v1`;
-  // const url = `http://localhost:4000/api/v1`;
-
-  // let imageUrl = 'http://localhost:4000/uploads';
-  let imageUrl = 'https://farmconnectng.herokuapp.com/uploads';
-
   let product = JSON.parse(localStorage.getItem('product'));
   // console.log(product);
   // console.log(product.amountCollected);
@@ -112,7 +106,6 @@ function payWithPaystack() {
       ],
     },
     callback: function (response) {
-      const url = `${url}/investment`;
       // post body data
       const investment = {
         investor: data.investor._id,
@@ -125,7 +118,7 @@ function payWithPaystack() {
       };
 
       // create request object
-      const request = new Request(url, {
+      const request = new Request(`${APIUrl}/investment`, {
         method: 'POST',
         body: JSON.stringify(investment),
         withCredentials: true,

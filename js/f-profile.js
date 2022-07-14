@@ -6,9 +6,6 @@ document.getElementById('email1').value = userdata.farmer.email;
 document.getElementById('gender').value = userdata.farmer.gender || '';
 document.getElementById('state').value = userdata.farmer.state || '';
 
-// let imageUrl = 'http://localhost:4000/uploads/';
-let imageUrl = 'https://farmconnectng.herokuapp.com/uploads/';
-
 function postData(event) {
   event.preventDefault();
 
@@ -34,13 +31,11 @@ function postData(event) {
   let id = user._id;
 
   error.textContent = '';
-  const url = `https://farmconnectng.herokuapp.com/api/v1/users/profile/farmers/${id}`;
-  // const url = `http://localhost:4000/api/v1/users/profile/farmers/${id}`;
 
   let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
 
   // create request object
-  const request = new Request(url, {
+  const request = new Request(`${APIUrl}/users/profile/farmers/${id}`, {
     method: 'PATCH',
     withCredentials: true,
     body: formData,

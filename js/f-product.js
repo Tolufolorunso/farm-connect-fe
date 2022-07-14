@@ -1,6 +1,3 @@
-// let imageUrl = 'http://localhost:4000/uploads/';
-let imageUrl = 'https://farmconnectng.herokuapp.com/uploads/';
-
 let logoutbutton = document.querySelector('.dashb');
 let nav2 = document.querySelector('.navbar');
 let ham2 = document.querySelector('.ham');
@@ -73,9 +70,7 @@ ham2.addEventListener('click', toogleHam2);
       item.src = `${imageUrl}/${userdata.farmer.image}`;
     });
   } else {
-    const url = `https://farmconnectng.herokuapp.com/api/v1/users/profile/farmers/${id}`;
-    // const url = `http://localhost:4000/api/v1/users/profile/farmers/${id}`;
-    fetch(url, {
+    fetch(`${APIUrl}/users/profile/farmers/${id}`, {
       method: 'GET',
       withCredentials: true,
       headers: {
@@ -101,10 +96,7 @@ ham2.addEventListener('click', toogleHam2);
       });
   }
 
-  const productUrl = `https://farmconnectng.herokuapp.com/api/v1/products/${id}`;
-  //   const productUrl = `http://localhost:4000/api/v1/products/${id}`;
-
-  fetch(productUrl, {
+  fetch(`${APIUrl}/products/${id}`, {
     method: 'GET',
     withCredentials: true,
     headers: {

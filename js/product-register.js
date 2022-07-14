@@ -35,14 +35,12 @@ function postData(event) {
   let error = document.querySelector('.error');
 
   error.textContent = '';
-  const url = 'https://farmconnectng.herokuapp.com/api/v1/products';
-  // const url = 'http://localhost:4000/api/v1/products';
 
   // console.log(formData);
   let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
 
   // create request object
-  const request = new Request(url, {
+  const request = new Request(`${APIUrl}/products`, {
     method: 'POST',
     withCredentials: true,
     body: formData,
