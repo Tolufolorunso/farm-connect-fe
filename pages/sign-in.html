@@ -10,9 +10,16 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/sign-in.css">
     <title>FarmConnect | Sign In</title>
+    <style>
+        body {
+            background-image: url(../img/bg.svg);
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 
 <body>
+
     <header>
         <div class="nav-items">
             <div class="logo">
@@ -29,7 +36,7 @@
             <span class="hamm"><i class="fas ham fa-bars"></i></span>
         </div>
     </header>
-    <img class="bg1" src="../img/bg.svg" alt="">
+    <!-- <img class="bg1" src="../img/bg.svg" alt=""> -->
     <section class="signupbox">
         <div class="formbox">
             <h1 class="head-form">SIGN IN</h1>
@@ -86,6 +93,8 @@
         </div>
         <p class="copy">Copyright&copy;2020 FarmConnect. All Rights Reserved</p>
     </footer>
+    <div id="snackbar"></div>
+
     <script>
         (function(){
             if (localStorage.getItem("farmconnectUser")){

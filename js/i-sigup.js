@@ -1,9 +1,8 @@
-function postData(event) {
+let loader = document.querySelector('.loader');
+
+async function postData(event) {
   event.preventDefault();
 
-  let loader = document.querySelector('.loader');
-
-  loader.classList.remove('none');
   let fullname = document.getElementById('fullname').value;
   let email = document.getElementById('email1').value;
   let phone = document.getElementById('phone').value;
@@ -14,9 +13,15 @@ function postData(event) {
   let orgphone = document.getElementById('orgphone').value;
   let investfocus = document.getElementById('investfocus').value;
 
-  let error = document.querySelector('.error');
+  if (!fullname || !email || !phone || !password || !investfocus) {
+    showAuthError('All fields are required');
+    return;
+  }
 
-  error.textContent = '';
+  if (password !== passwordconfirm) {
+    showAuthError('Password not matched');
+    return;
+  }
 
   // post body data
   const user = {
@@ -31,32 +36,51 @@ function postData(event) {
     investmentFocus: investfocus,
   };
 
-  // create request object
-  const request = new Request(`${APIUrl}/users/signup/investor`, {
-    method: 'POST',
-    body: JSON.stringify(user),
-    headers: new Headers({
-      'Content-Type': 'application/json',
-    }),
-  });
-
-  // pass request object to `fetch()`
-  fetch(request)
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.status === 'success') {
-        window.location.href = '/pages/farmers/apply-success.html';
-      } else {
-        loader.classList.add('none');
-        error.classList.remove('none');
-        res.error.map((item) => {
-          let element = document.createElement('p');
-          element.textContent = item.message;
-          element.classList.add('error-item');
-          error.appendChild(element);
-        });
-      }
+  loader.classList.remove('none');
+  try {
+    const response = await fetch(`${APIUrl}/users/signup/investor`, {
+      method: 'POST',
+      body: JSON.stringify(user),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+      }),
     });
+
+    const newUser = await response.json();
+    if (newUser.status) {
+      showSnackbar(newUser.message, 'green');
+      loader.classList.add('none');
+      setTimeout(() => {
+        window.location.href = '/pages/sign-in.html';
+      }, 3000);
+    } else {
+      loader.classList.add('none');
+      if (newUser.message === 'This email already exists') {
+        throw new Error(newUser.message);
+      }
+
+      let div = document.createElement('div');
+
+      newUser.data.error.split(',').forEach((item) => {
+        let i = item.split(':');
+        let p = document.createElement('p');
+        if (i[0].includes('validation')) {
+          p.textContent = i[2].trim();
+        } else {
+          p.textContent = i[1].trim();
+        }
+        div.appendChild(p);
+      });
+      addError();
+      error.appendChild(div);
+      setTimeout(() => {
+        removeError();
+      }, 3000);
+    }
+  } catch (error) {
+    loader.classList.add('none');
+    showAuthError(error.message);
+  }
 }
 
 document.getElementById('ipost').addEventListener('submit', postData);

@@ -10,6 +10,12 @@
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/i-sign-up.css">
     <title>FarmConnect | Investor Sign Up</title>
+    <style>
+        body {
+            background-image: url(../../img/bg.svg);
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 
 <body>
@@ -29,7 +35,7 @@
             <span class="hamm"><i class="fas ham fa-bars"></i></span>
         </div>
     </header>
-    <img class="bg1" src="../../img/bg.svg" alt="">
+    <!-- <img class="bg1" src="../../img/bg.svg" alt=""> -->
     <section class="signupbox">
         <a href="../../pages/sign-up-gate.html" class="back">BACK</a>
         <div class="formbox">
@@ -49,7 +55,7 @@
                     <input type="password" class="input-farm" aria-label="password" placeholder="Password" name="password" id="password" required>
                 </div>
                 <div>
-                    <input type="password" class="input-farm" aria-label="confirm password" placeholder="Confirm Password" name="confirmpassword" id="confirmpassword" required>
+                    <input type="password" class="input-farm" aria-label="confirm password" placeholder="Confirm Password" name="confirmpassword" id="confirmpassword" >
                 </div>
                 <div>
                     <input type="text" class="input-farm" aria-label="organization" placeholder="Organization (optional)" name="organization" id="organization">
@@ -61,7 +67,7 @@
                     <input type="text" class="input-farm" aria-label="org-hone" placeholder="Organization Phone (optional)" name="orgphone" id="orgphone">
                 </div>
                 <div>
-                    <select class="input-farm" aria-label="invest-focus" id="investfocus" >
+                    <select class="input-farm" aria-label="invest-focus" id="investfocus" required>
                         <option>Investement Focus</option>
                         <option>ANIMALS</option>
                         <option>PLANTS & TREES</option>
@@ -118,6 +124,7 @@
 
         <p class="copy">Copyright&copy;2020 FarmConnect. All Rights Reserved</p>
     </footer>
+    <div id="snackbar"></div>
     <script>
         (function(){
             if (localStorage.getItem("farmconnectUser")){

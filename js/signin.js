@@ -1,4 +1,3 @@
-let error = document.querySelector('.error');
 let loader = document.querySelector('.loader');
 
 async function postData(event) {
@@ -34,17 +33,21 @@ async function postData(event) {
     if (res.status) {
       localStorage.setItem('farmconnectUser', res.token);
       localStorage.setItem('farmdata', JSON.stringify(res.user));
-      if (res.user.role === 'investor') {
-        window.location.href = '/pages/investors/i-dashboard.html';
-      } else if (res.user.role === 'farmer') {
-        window.location.href = '/pages/farmers/f-dashboard.html';
-      }
+      loader.classList.add('none');
+      showSnackbar(res.message, 'green');
+
+      setTimeout(() => {
+        if (res.user.role === 'investor') {
+          window.location.href = '/pages/investors/i-dashboard.html';
+        } else if (res.user.role === 'farmer') {
+          window.location.href = '/pages/farmers/f-dashboard.html';
+        }
+      }, 3000);
     } else {
       loader.classList.add('none');
       throw new Error(res.data.error);
     }
   } catch (err) {
-    addError();
     let element = document.createElement('p');
     element.textContent = err.message;
     element.classList.add('error-item');
@@ -54,14 +57,5 @@ async function postData(event) {
     }, 3000);
   }
 }
-
-const removeError = () => {
-  error.classList.add('none');
-  error.textContent = '';
-};
-
-const addError = () => {
-  error.classList.remove('none');
-};
 
 document.getElementById('flogin').addEventListener('submit', postData);

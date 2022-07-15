@@ -10,6 +10,16 @@
     <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="../../css/f-sign-up.css">
     <title>FarmConnect | Farmer Sign Up</title>
+    <style>
+        body {
+            background-image: url(../../img//bg.svg);
+            background-repeat: no-repeat;
+        }
+
+        .signupbox {
+            margin: 100px;
+        }
+    </style>
 </head>
 
 <body>
@@ -29,7 +39,6 @@
             <span class="hamm"><i class="fas ham fa-bars"></i></span>
         </div>
     </header>
-    <img class="bg1" src="../../img/bg.svg" alt="">
     <section class="signupbox">
         <a href="../../pages/sign-up-gate.html" class="back">BACK</a>
         <div class="formbox">
@@ -37,19 +46,19 @@
 
             <form class="form" id="fpost">
                 <div>
-                    <input type="text" class="input-farm" aria-label="fullname" placeholder="Full Name" name="fullname" id="fullname" required>
+                    <input type="text" class="input-farm" aria-label="fullname" placeholder="Full Name" name="fullname" id="fullname" >
                 </div>
                 <div>
-                    <input type="email" class="input-farm" aria-label="email" placeholder="Email" name="email" id="email1" required>
+                    <input type="email" class="input-farm" aria-label="email" placeholder="Email" name="email" id="email1" >
                 </div>
                 <div>
-                    <input type="text" class="input-farm" aria-label="Phone number" placeholder="Phone" name="phone" id="phone" required>
+                    <input type="text" class="input-farm" aria-label="Phone number" placeholder="Phone" name="phone" id="phone" >
                 </div>
                 <div>
-                    <input type="password" class="input-farm" aria-label="password" placeholder="Password" name="password" id="password" required>
+                    <input type="password" class="input-farm" aria-label="password" placeholder="Password" name="password" id="password" >
                 </div>
                 <div>
-                    <input type="password" class="input-farm" aria-label="confirm password" placeholder="Confirm Password" name="confirmpassword" id="confirmpassword" required>
+                    <input type="password" class="input-farm" aria-label="confirm password" placeholder="Confirm Password" name="confirmpassword" id="confirmpassword" >
                 </div>
                 <div class="loader none">Loading...</div>
                 <div class="error none"></div>
@@ -99,6 +108,7 @@
 
         <p class="copy">Copyright&copy;2020 FarmConnect. All Rights Reserved</p>
     </footer>
+    <div id="snackbar"></div>
     <script>
         (function(){
             if (localStorage.getItem("farmconnectUser")){
