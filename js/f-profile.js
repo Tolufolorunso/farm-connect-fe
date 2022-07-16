@@ -1,26 +1,20 @@
-let userdata = JSON.parse(localStorage.getItem('userdata'));
+let userdata = JSON.parse(localStorage.getItem('userData'));
+// let loader = document.querySelector('.loader');
 
-document.getElementById('phone').value = userdata.farmer.phoneNumber;
-document.getElementById('name').value = userdata.farmer.name;
-document.getElementById('email1').value = userdata.farmer.email;
-document.getElementById('gender').value = userdata.farmer.gender || '';
-document.getElementById('state').value = userdata.farmer.state || '';
-document.getElementById('fileupload').innerHTML = userdata.farmer.image || '';
-// document
-//   .getElementById('fileupload')
-//   .setAttribute('value', userdata.farmer.image || '');
-document
-  .getElementById('profileImg')
-  .setAttribute(
-    'src',
-    `${imageUrl}/${userdata.farmer.image}` || '../img/profile-img.svg'
-  );
+document.getElementById('phone').value = userdata.phoneNumber;
+document.getElementById('name').value = userdata.name;
+document.getElementById('email1').value = userdata.email;
+document.getElementById('gender').value = userdata.gender || '';
+document.getElementById('state').value = userdata.state || '';
+document.getElementById('fileupload').innerHTML = userdata.image || '';
+let profileImg = userdata.image
+  ? `${imageUrl}/${userdata.image}`
+  : '../../img/profile-img.svg';
 
-function postData(event) {
+document.getElementById('profileImg').setAttribute('src', profileImg);
+
+async function postData(event) {
   event.preventDefault();
-
-  let loader = document.querySelector('.loader');
-  loader.classList.remove('none2');
   let name = document.getElementById('name').value;
   let phone = document.getElementById('phone').value;
   let email = document.getElementById('email1').value;
@@ -36,37 +30,37 @@ function postData(event) {
   formData.append('image', fileupload);
   formData.append('state', state);
 
-  let error = document.querySelector('.error');
-  let user = JSON.parse(localStorage.getItem('farmdata'));
-  let id = user._id;
+  loader.classList.remove('none2');
+  let token = 'JWT ' + localStorage.getItem('token');
 
-  error.textContent = '';
-
-  let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
-
-  // create request object
-  const request = new Request(`${APIUrl}/users/profile/farmers/${id}`, {
-    method: 'PATCH',
-    withCredentials: true,
-    body: formData,
-    headers: new Headers({
-      authorization: token,
-    }),
-  });
-
-  // pass request object to `fetch()`
-  fetch(request)
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.status) {
-        localStorage.setItem('userdata', JSON.stringify(res.data));
-        window.location.href = '/pages/farmers/register-success.html';
-      } else {
-        loader.classList.add('none');
-        error.classList.remove('none');
-        error.textContent = res.data.error;
+  try {
+    const response = await fetch(
+      `${APIUrl}/users/profile/farmers/${userdata._id}`,
+      {
+        method: 'PATCH',
+        withCredentials: true,
+        body: formData,
+        headers: new Headers({
+          authorization: token,
+        }),
       }
-    });
+    );
+    const updatedUser = await response.json();
+    loader.classList.add('none2');
+    if (updatedUser.status) {
+      let user = updatedUser.data.farmer;
+      let image = `${imageUrl}/${user.image}`;
+      localStorage.setItem('userData', JSON.stringify(user));
+      document.getElementById('profileImg').setAttribute('src', image);
+
+      showSnackbar(updatedUser.message, 'green');
+    } else {
+      console.log(updatedUser.data.errorMessage);
+      throw new Error(updatedUser.data.errorMessage);
+    }
+  } catch (error) {
+    showSnackbar(error.message, 'red');
+  }
 }
 
 document.getElementById('profileid').addEventListener('submit', postData);

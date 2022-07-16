@@ -48,9 +48,8 @@ const toogleHam2 = () => {
 };
 
 let logout = () => {
-  localStorage.removeItem('farmconnectUser');
-  localStorage.removeItem('farmdata');
-  localStorage.removeItem('userdata');
+  localStorage.removeItem('token');
+  localStorage.removeItem('userData');
   localStorage.removeItem('product');
   window.location.href = '../../index.html';
 };
@@ -59,44 +58,13 @@ logoutbutton.addEventListener('click', logout);
 ham2.addEventListener('click', toogleHam2);
 
 (function () {
-  let user = JSON.parse(localStorage.getItem('farmdata'));
-  let id = user['_id'];
-  let text = localStorage.getItem('farmconnectUser').toString();
-  let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
-  let userdata = JSON.parse(localStorage.getItem('userdata'));
-
-  if (userdata) {
-    profileName.textContent = userdata.name;
-    profileName1.textContent = userdata.name;
-    profileImage.map((item) => {
-      item.src = `${imageUrl}/${userdata.image}`;
-    });
-  } else {
-    fetch(`${APIUrl}/users/farmers/${id}`, {
-      method: 'GET',
-      withCredentials: true,
-      headers: {
-        authorization: token,
-      },
-    })
-      .then((res) => res.json())
-      .then((user) => {
-        if (user) {
-          localStorage.setItem('userdata', JSON.stringify(user));
-          profileName.textContent = user.data.farmer.name;
-          profileName1.textContent = user.data.farmer.name;
-          profileImage.map((item) => {
-            item.src = `${imageUrl}/${user.data.farmer.image}`;
-          });
-        } else {
-          profileName.textContent = '';
-          profileName1.textContent = '';
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  let user = JSON.parse(localStorage.getItem('userData'));
+  let token = 'JWT ' + localStorage.getItem('token');
+  profileName.textContent = user.name;
+  profileName1.textContent = user.name;
+  profileImage.map((item) => {
+    item.src = `${imageUrl}/${user.image}`;
+  });
 
   https: fetch(`${APIUrl}/products`, {
     method: 'GET',

@@ -75,7 +75,7 @@
                     <div class="f-i-product">
                         <div class="products-card-detail">
                             <img class="imgd img-cont"
-                                src="../../img/rooster.png">
+                                src="../../img/logoCrop.png" width="320">
                             <div class="desc-detail">
                                 <div class="desc-top">
                                     <div class="desc-top-l">
@@ -162,7 +162,7 @@
             <div class="f-i-product">
                 <div class="products-card-detail">
                     <img class="imgd"
-                        src="https://res.cloudinary.com/josh4324/image/upload/v1590231909/rooster_p9h8td.png">
+                        src="../../img/rooster.png" width="320">
                     <div class="desc-detail">
                         <div class="desc-top">
                             <div class="desc-top-l">
@@ -230,15 +230,15 @@
                 }
             }
             (function () {
-                if (!localStorage.getItem("farmconnectUser")) {
-                    window.location.href = "../../index.html";
-                } else {
-                    let user = localStorage.getItem("farmdata");
-                    user = JSON.parse(user);
-                    if (user.role === "investor") {
-                        window.location.href = "/pages/investors/i-dashboard.html";
-                    }
+                 let user = localStorage.getItem("userData")
+            if (!user) {
+                window.location.href = "../../index.html";
+            }else {
+                user = JSON.parse(user);
+                if (user.role === "investor") {
+                    window.location.href = "/pages/investors/i-dashboard.html";
                 }
+            }
             })()
     </script>
     <script src="../../js/url.js"></script>

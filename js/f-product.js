@@ -47,9 +47,8 @@ const toogleHam2 = () => {
 };
 
 let logout = () => {
-  localStorage.removeItem('farmvestUser');
-  localStorage.removeItem('farmdata');
-  localStorage.removeItem('userdata');
+  localStorage.removeItem('token');
+  localStorage.removeItem('userData');
   localStorage.removeItem('product');
   window.location.href = '../../index.html';
 };
@@ -57,60 +56,31 @@ let logout = () => {
 logoutbutton.addEventListener('click', logout);
 ham2.addEventListener('click', toogleHam2);
 
-(function () {
-  let user = JSON.parse(localStorage.getItem('farmdata'));
-  let id = user['_id'];
-  let text = localStorage.getItem('farmconnectUser').toString();
-  let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
-  let userdata = JSON.parse(localStorage.getItem('userdata'));
+(async function () {
+  let token = 'JWT ' + localStorage.getItem('token');
+  let userData = JSON.parse(localStorage.getItem('userData'));
 
-  if (userdata) {
-    profileName.textContent = userdata.farmer.name;
-    profileName1.textContent = userdata.farmer.name;
-    profileImage.map((item) => {
-      let image = `${imageUrl}/${userdata.farmer.image}`;
-      item.src = `${userdata.farmer.image ? image : '../img/profile-img.svg'}`;
-    });
-  } else {
-    fetch(`${APIUrl}/users/profile/farmers/${id}`, {
+  profileName.textContent = userData.name;
+  profileName1.textContent = userData.name;
+
+  profileImage.map((item) => {
+    let image = userData.image;
+    item.src = `${image ? `${imageUrl}/${image}` : '../img/profile-img.svg'}`;
+  });
+
+  try {
+    const response = await fetch(`${APIUrl}/products/${userData._id}`, {
       method: 'GET',
       withCredentials: true,
       headers: {
         authorization: token,
       },
-    })
-      .then((res) => res.json())
-      .then((user) => {
-        if (user) {
-          localStorage.setItem('userdata', JSON.stringify(user));
-          profileName.textContent = user.data.farmer.name;
-          profileName1.textContent = user.data.farmer.name;
-          profileImage.map((item) => {
-            let image = user.data.farmer.image;
-            item.src = image ? image : '../img/profile-img.svg';
-          });
-        } else {
-          profileName.textContent = '';
-          profileName1.textContent = '';
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+    });
 
-  fetch(`${APIUrl}/products/${id}`, {
-    method: 'GET',
-    withCredentials: true,
-    headers: {
-      authorization: token,
-    },
-  })
-    .then((res) => res.json())
-    .then((user) => {
-      let arr = user.data;
-
-      loader.classList.add('none2');
+    const products = await response.json();
+    if (products.status) {
+      let arr = products.data;
+      loader.classList.add('none');
       arr.map((item) => {
         let productCard = document.createElement('div');
         productCard.classList.add('products-card');
@@ -143,9 +113,8 @@ ham2.addEventListener('click', toogleHam2);
         productCard.appendChild(desc);
         featitems.appendChild(productCard);
       });
-
-      let products = document.querySelectorAll('.products-card');
-      products = Array.from(products);
+      let allProducts = document.querySelectorAll('.products-card');
+      allProducts = Array.from(allProducts);
 
       let productfunc = (item) => {
         localStorage.removeItem('product');
@@ -163,12 +132,13 @@ ham2.addEventListener('click', toogleHam2);
         localStorage.setItem('product', JSON.stringify(data));
         window.location.href = '../farmers/f-product-detail.html';
       };
-
-      products.map((item) => {
+      allProducts.map((item) => {
         item.addEventListener('click', () => productfunc(item));
       });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    } else {
+      console.log('not p');
+    }
+  } catch (error) {
+    console.log(error);
+  }
 })();

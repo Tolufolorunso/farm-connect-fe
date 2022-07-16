@@ -30,10 +30,10 @@ async function postData(event) {
     });
 
     const res = await resp.json();
-
+    console.log(res.user);
     if (res.status) {
-      localStorage.setItem('farmconnectUser', res.token);
-      localStorage.setItem('farmdata', JSON.stringify(res.user));
+      localStorage.setItem('token', res.token);
+      localStorage.setItem('userData', JSON.stringify(res.user));
       loader.classList.add('none');
       showSnackbar(res.message, 'green');
 

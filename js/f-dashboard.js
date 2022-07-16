@@ -48,9 +48,8 @@ const toogleHam2 = () => {
 };
 
 let logout = () => {
-  localStorage.removeItem('farmconnectUser');
-  localStorage.removeItem('farmdata');
-  localStorage.removeItem('userdata');
+  localStorage.removeItem('token');
+  localStorage.removeItem('userData');
   localStorage.removeItem('product');
   window.location.href = '../../index.html';
 };
@@ -59,44 +58,18 @@ logoutbutton.addEventListener('click', logout);
 ham2.addEventListener('click', toogleHam2);
 
 (function () {
-  let user = JSON.parse(localStorage.getItem('farmdata'));
-  let id = user['_id'];
-  let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
-  let userdata = JSON.parse(localStorage.getItem('userdata'));
+  let user = JSON.parse(localStorage.getItem('userData'));
+  let token = 'JWT ' + localStorage.getItem('token').toString();
 
-  if (userdata) {
-    profileName.textContent = userdata.farmer.name;
-    profileName1.textContent = userdata.farmer.name;
-    profileImage.map((item) => {
-      item.src = `${imageUrl}/${userdata.farmer.image}`;
-    });
-  } else {
-    fetch(`${APIUrl}/users/farmers/${id}`, {
-      method: 'GET',
-      withCredentials: true,
-      headers: {
-        authorization: token,
-      },
-    })
-      .then((res) => res.json())
-      .then(({ data }) => {
-        if (data) {
-          localStorage.setItem('userdata', JSON.stringify(data));
-          profileName.textContent = data.farmer.name;
-          profileName1.textContent = data.farmer.name;
+  profileName.textContent = user.name;
+  profileName1.textContent = user.name;
+  let userImage = user.image
+    ? `${imageUrl}/${user.image}`
+    : '../../img/profile-img.svg';
 
-          profileImage.map((item) => {
-            item.src = `${imageUrl}/${data.farmer.image}`;
-          });
-        } else {
-          profileName.textContent = '';
-          profileName1.textContent = '';
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
+  profileImage.map((item) => {
+    item.src = userImage;
+  });
 
   fetch(`${APIUrl}/products`, {
     method: 'GET',

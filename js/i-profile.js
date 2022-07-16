@@ -1,4 +1,17 @@
-let user = JSON.parse(localStorage.getItem('userdata'));
+let user = JSON.parse(localStorage.getItem('userData'));
+let loader = document.querySelector('.loader');
+let profileImage = document.querySelectorAll('.profile-img');
+profileImage = Array.from(profileImage);
+
+// profileName.textContent = user.name;
+document.querySelector('.profile-name1').textContent = user.name;
+let userImage = user.image
+  ? `${imageUrl}/${user.image}`
+  : '../../img/profile-img.svg';
+
+profileImage.map((item) => {
+  item.src = userImage;
+});
 
 document.getElementById('phone').value = user.phoneNumber;
 document.getElementById('name').value = user.name;
@@ -6,19 +19,19 @@ document.getElementById('email1').value = user.email;
 document.getElementById('gender').value = user.gender || '';
 document.getElementById('state').value = user.state || '';
 
-function postData(event) {
+async function postData(event) {
   event.preventDefault();
 
-  let loader = document.querySelector('.loader');
-  loader.classList.remove('none2');
   let name = document.getElementById('name').value;
   let phone = document.getElementById('phone').value;
   let email = document.getElementById('email1').value;
   let gender = document.getElementById('gender').value;
   let state = document.getElementById('state').value;
   let fileupload = document.getElementById('fileupload').files[0];
-
   let formData = new FormData();
+
+  loader.classList.remove('none2');
+
   formData.append('name', name);
   formData.append('email', email);
   formData.append('phoneNumber', phone);
@@ -26,45 +39,46 @@ function postData(event) {
   formData.append('image', fileupload);
   formData.append('state', state);
 
-  let error = document.querySelector('.error');
-  let user = JSON.parse(localStorage.getItem('farmdata'));
-  let id = user._id;
+  let token = 'JWT ' + localStorage.getItem('token');
 
-  error.textContent = '';
-
-  let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
-
-  // create request object
-  const request = new Request(`${APIUrl}/users/profile/investor/${id}`, {
-    method: 'PATCH',
-    withCredentials: true,
-    body: formData,
-    headers: new Headers({
-      authorization: token,
-    }),
-  });
-
-  // pass request object to `fetch()`
-  fetch(request)
-    .then((res) => res.json())
-    .then((res) => {
-      if (res.status) {
-        localStorage.setItem('userdata', JSON.stringify(res.data.investor));
-        window.location.href = '/pages/farmers/register-success.html';
-      } else {
-        loader.classList.add('none');
-        error.classList.remove('none');
-        error.textContent = res.data.error;
+  try {
+    const response = await fetch(
+      `${APIUrl}/users/profile/investor/${user._id}`,
+      {
+        method: 'PATCH',
+        withCredentials: true,
+        body: formData,
+        headers: new Headers({
+          authorization: token,
+        }),
       }
-    });
+    );
+
+    const investor = await response.json();
+    loader.classList.add('none2');
+
+    if (investor.status) {
+      let user = investor.data.investor;
+      let image = `${imageUrl}/${user.image}`;
+      localStorage.setItem('userData', JSON.stringify(user));
+      profileImage.map((item) => {
+        item.src = image;
+      });
+      showSnackbar(investor.message, 'green');
+    } else {
+      throw new Error(investor.data.errorMessage);
+    }
+  } catch (error) {
+    console.log(error);
+    showSnackbar(error.message, 'red');
+  }
 }
 
 document.getElementById('profileid').addEventListener('submit', postData);
 
 let logout = () => {
-  localStorage.removeItem('farmconnectUser');
-  localStorage.removeItem('farmdata');
-  localStorage.removeItem('userdata');
+  localStorage.removeItem('token');
+  localStorage.removeItem('userData');
   localStorage.removeItem('product');
   window.location.href = '../../index.html';
 };

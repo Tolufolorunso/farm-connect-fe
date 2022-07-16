@@ -64,9 +64,9 @@
 let funddetail = document.querySelectorAll('.fund-detail');
 funddetail = Array.from(funddetail);
 let product = JSON.parse(localStorage.getItem('product'));
-let data = JSON.parse(localStorage.getItem('userdata'));
+let data = JSON.parse(localStorage.getItem('userData'));
 let mim = product.minvest;
-let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
+let token = 'JWT ' + localStorage.getItem('token');
 let invest = document.querySelector('.now');
 let invest1 = document.getElementById('invest1');
 
@@ -79,6 +79,7 @@ funddetail.map((newitem) => {
 });
 
 function payWithPaystack() {
+  console.log('hello');
   let unit = document.getElementById('unit').value;
   let amount = parseFloat(unit) * parseFloat(mim);
   let error = document.querySelector('.error');

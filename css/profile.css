@@ -1,15 +1,14 @@
-
 .filter-text.sect {
-    float: left;
-    padding-bottom: 20px;
-    margin: 0;
+  float: left;
+  padding-bottom: 20px;
+  margin: 0;
 }
 
 .form {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 #file-upload {
-    padding-top: 12px;
+  padding-top: 12px;
 }

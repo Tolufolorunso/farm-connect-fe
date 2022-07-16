@@ -298,10 +298,10 @@
         }
 
          (function () {
-             if (!localStorage.getItem("farmconnectUser")) {
+             if (!localStorage.getItem("userData")) {
                  window.location.href = "../../index.html";
              } else {
-                 let user = localStorage.getItem("farmdata");
+                 let user = localStorage.getItem("userData");
                  user = JSON.parse(user);
                  if (user.role === "farmer") {
                      window.location.href = "/pages/farmers/f-dashboard.html";

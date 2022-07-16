@@ -86,6 +86,7 @@
 
         </main>
     </div>
+`
 
     <footer class="footer">
         <div class="inner-footer">
@@ -122,17 +123,15 @@
         <p class="copy">Copyright&copy;2020 FarmConnect. All Rights Reserved</p>
     </footer>
      <script>
-        (function () {
-            if (!localStorage.getItem("farmconnectUser")) {
+         let user = localStorage.getItem("userData")
+            if (!user) {
                 window.location.href = "../../index.html";
-            } else {
-                let user = localStorage.getItem("farmdata");
+            }else {
                 user = JSON.parse(user);
                 if (user.role === "investor") {
                     window.location.href = "/pages/investors/i-dashboard.html";
                 }
             }
-        })()
     </script>
     <script src="../../js/url.js"></script>
     <script src="../../js/app.js"></script>

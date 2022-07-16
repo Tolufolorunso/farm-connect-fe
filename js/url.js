@@ -9,13 +9,13 @@ let imageUrl = 'https://farmconnectng.herokuapp.com/uploads';
 //   localStorage.removeItem('farmdata');
 //   localStorage.removeItem('userdata');
 //   localStorage.removeItem('product');
-//   window.location.href = '/';
+//   window.location.href = '../../index.html';
 // };
 
 let snackbar = document.getElementById('snackbar');
 let error = document.querySelector('.error');
 
-const showSnackbar = (message, type) => {
+const showSnackbar = (message, type = 'green') => {
   snackbar.classList.add('show');
   snackbar.textContent = message;
   snackbar.style.background = type;
@@ -47,7 +47,7 @@ const enabledBtn = () => {
   submitBtn.style.cursor = 'pointer';
 };
 
-const showAuthError = (message) => {
+const showAuthError = (message, duration = 3000) => {
   addError();
   error.textContent = '';
   error.classList.remove('none');

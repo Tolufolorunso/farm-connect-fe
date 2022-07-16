@@ -52,9 +52,8 @@ const toogleHam3 = () => {
 };
 
 let logout = () => {
-  localStorage.removeItem('farmvestUser');
-  localStorage.removeItem('farmdata');
-  localStorage.removeItem('userdata');
+  localStorage.removeItem('token');
+  localStorage.removeItem('userData');
   localStorage.removeItem('product');
   window.location.href = '../../index.html';
 };
@@ -69,54 +68,48 @@ products.map((item) => {
   item.addEventListener('click', productfunc);
 });
 
-(function () {
-  let user = JSON.parse(localStorage.getItem('farmdata'));
-  let id = user['_id'];
-  let text = localStorage.getItem('farmconnectUser').toString();
-  let token = 'JWT ' + localStorage.getItem('farmconnectUser').toString();
-  let userdata = JSON.parse(localStorage.getItem('userdata'));
+(async function () {
+  let user = JSON.parse(localStorage.getItem('userData'));
+  let token = 'JWT ' + localStorage.getItem('token').toString();
 
-  if (userdata) {
-    profileName.textContent = userdata.name;
-    profileName1.textContent = userdata.name;
-    profileImage.map((item) => {
-      // ${imageUrl}/${userdata.image}
-      item.src = `${
-        userdata.image
-          ? imageUrl + '/' + userdata.image
-          : '../img/profile-img.svg'
-      }`;
-    });
-  } else {
-    fetch(`${APIUrl}/users/investors/${id}`, {
+  profileName.textContent = user.name;
+  profileName1.textContent = user.name;
+  let userImage = user.image
+    ? `${imageUrl}/${user.image}`
+    : '../../img/profile-img.svg';
+
+  profileImage.map((item) => {
+    item.src = userImage;
+  });
+
+  try {
+    const response = await fetch(`${APIUrl}/users/investors/${user._id}`, {
       method: 'GET',
       withCredentials: true,
       headers: {
         authorization: token,
       },
-    })
-      .then((res) => res.json())
-      .then(({ data }) => {
-        if (data) {
-          localStorage.setItem('userdata', JSON.stringify(user));
-          profileName.textContent = data.investor.name;
-          profileName1.textContent = data.investor.name;
+    });
 
-          profileImage.map((item) => {
-            item.src = `${
-              data.investor.image
-                ? 'uploads' + data.investor.image
-                : '../img/profile-img.svg'
-            }`;
-          });
-        } else {
-          profileName.textContent = '';
-          profileName1.textContent = '';
-        }
-      })
-      .catch((err) => {
-        console.log(err);
+    const userData = await response.json();
+    if (userData.status) {
+      let user = userData.data.investor;
+      localStorage.setItem('userData', JSON.stringify(user));
+      profileName.textContent = user.name;
+      profileName1.textContent = user.name;
+      let userImage = user.image
+        ? `${imageUrl}/${user.image}`
+        : '../../img/profile-img.svg';
+
+      profileImage.map((item) => {
+        item.src = userImage;
       });
+    } else {
+      throw new Error('Something went wrong');
+    }
+  } catch (error) {
+    console.log(error);
+    showSnackbar(error.message);
   }
 
   fetch(`${APIUrl}/products/`, {
@@ -127,17 +120,21 @@ products.map((item) => {
     },
   })
     .then((res) => res.json())
-    .then((user) => {
-      let arr = user.data.slice(0, 4);
+    .then((allProducts) => {
+      let productsArr = allProducts.data.filter((prod) => {
+        return prod.featured;
+      });
+
       if (loader) {
         loader.classList.add('none2');
       }
-      console.log('here');
-      arr.map((item) => {
+
+      productsArr.map((item) => {
         let productCard = document.createElement('div');
         productCard.classList.add('products-card');
         let image = document.createElement('img');
         image.src = `${imageUrl}/${item.image}`;
+
         let desc = document.createElement('div');
         desc.classList.add('desc');
         let h6 = document.createElement('h6');
@@ -148,6 +145,7 @@ products.map((item) => {
         h62.innerHTML = `<span>&#8358;${item.amountNeeded}</span>`;
         desc.appendChild(h6);
         desc.appendChild(h62);
+
         productCard.setAttribute('data-name', item.name);
         productCard.setAttribute('data-image', item.image);
         productCard.setAttribute('data-amount', item.amountNeeded);
@@ -164,8 +162,12 @@ products.map((item) => {
         productCard.setAttribute('data-amountcollected', item.amountCollected);
 
         productCard.appendChild(image);
+
         productCard.appendChild(desc);
-        featitems.appendChild(productCard);
+
+        if (featitems) {
+          featitems.appendChild(productCard);
+        }
       });
 
       let products = document.querySelectorAll('.products-card');

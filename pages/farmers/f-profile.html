@@ -104,7 +104,7 @@
                 <div class="error none"></div>
 
                 <div>
-                    <input class="input-farm" aria-label="register" type="submit" value="Update" id="register">
+                    <input class="input-farm btn" aria-label="register" type="submit" value="Update" id="register" >
                 </div>
             </form>
 
@@ -145,18 +145,17 @@
         </div>
         <p class="copy">Copyright&copy;2020 FarmConnect. All Rights Reserved</p>
     </footer>
+    <div id="snackbar"></div>
     <script>
-         (function () {
-             if (!localStorage.getItem("farmconnectUser")) {
-                 window.location.href = "../../index.html";
-             }else {
-                 let user = localStorage.getItem("farmdata");
-                 user = JSON.parse(user);
-                 if (user.role === "investor") {
-                     window.location.href = "/pages/investors/i-dashboard.html";
-                 }
-             }
-         })()
+         let user = localStorage.getItem("userData")
+            if (!user) {
+                window.location.href = "../../index.html";
+            }else {
+                user = JSON.parse(user);
+                if (user.role === "investor") {
+                    window.location.href = "/pages/investors/i-dashboard.html";
+                }
+            }
     </script>
     <script src="../../js/url.js"></script>
     <script src="../../js/app.js"></script>

@@ -52,7 +52,7 @@
                 <div class="loader none">Loading...</div>
                 <div class="error none"></div>
                 <div>
-                    <input class="input-farm submit-btn" aria-label="sign in" type="submit" value="SIGN IN" id="submit" style="cursor: pointer;">
+                    <input class="input-farm submit-btn btn" aria-label="sign in" type="submit" value="SIGN IN" id="submit" >
                 </div>
                 <span class="acc">Don't have an account?<a class="red" href="../pages/sign-up-gate.html">Sign Up...</a></span>
             </form>
@@ -96,8 +96,8 @@
     <div id="snackbar"></div>
 
     <script>
-        (function(){
-            if (localStorage.getItem("farmconnectUser")){
+
+            if (localStorage.getItem("userData")){
                 let user = localStorage.getItem("farmdata");
                 user = JSON.parse(user);
                 if (user.role === "farmer"){
@@ -105,9 +105,7 @@
                 }else {
                     window.location.href = "/pages/investors/i-dashboard.html";
                 }
-
             }
-        })()
     </script>
     <script src="../js/url.js"></script>
     <script src="../js/app.js"></script>

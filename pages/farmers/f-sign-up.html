@@ -110,17 +110,16 @@
     </footer>
     <div id="snackbar"></div>
     <script>
-        (function(){
-            if (localStorage.getItem("farmconnectUser")){
-                let user = localStorage.getItem("farmdata");
+            let user = localStorage.getItem("userData");
+            if (user){
                 user = JSON.parse(user);
+                console.log(user);
                 if (user.role === "farmer"){
                     window.location.href = "/pages/farmers/f-dashboard.html";
                 }else {
                     window.location.href = "/pages/investors/i-dashboard.html";
                 }
             }
-        })()
     </script>
     <script src="../../js/url.js"></script>
     <script src="../../js/app.js"></script>
