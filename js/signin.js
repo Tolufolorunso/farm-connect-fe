@@ -1,5 +1,4 @@
 let loader = document.querySelector('.loader');
-
 async function postData(event) {
   event.preventDefault();
   error.textContent = '';
@@ -12,6 +11,8 @@ async function postData(event) {
     error.textContent = 'All fields are required';
     return;
   }
+
+  // disabledBtn();
 
   loader.classList.remove('none');
 
@@ -48,13 +49,7 @@ async function postData(event) {
       throw new Error(res.data.error);
     }
   } catch (err) {
-    let element = document.createElement('p');
-    element.textContent = err.message;
-    element.classList.add('error-item');
-    error.appendChild(element);
-    setTimeout(() => {
-      removeError();
-    }, 3000);
+    showAuthError(err.message);
   }
 }
 

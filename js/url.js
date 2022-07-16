@@ -33,6 +33,20 @@ const addError = () => {
   error.classList.remove('none');
 };
 
+const disabledBtn = () => {
+  let submitBtn = document.querySelector('.submit-btn');
+  submitBtn.setAttribute('disabled', true);
+  submitBtn.style.backgroundColor = '#ccc';
+  submitBtn.style.cursor = 'not-allowed';
+};
+
+const enabledBtn = () => {
+  let submitBtn = document.querySelector('.submit-btn');
+  submitBtn.setAttribute('disabled', false);
+  submitBtn.style.backgroundColor = '#144a05';
+  submitBtn.style.cursor = 'pointer';
+};
+
 const showAuthError = (message) => {
   addError();
   error.textContent = '';
