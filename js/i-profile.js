@@ -56,6 +56,7 @@ async function postData(event) {
 
     const investor = await response.json();
     loader.classList.add('none2');
+    console.log(investor);
 
     if (investor.status) {
       let user = investor.data.investor;

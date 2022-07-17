@@ -46,6 +46,7 @@ async function postData(event) {
       }
     );
     const updatedUser = await response.json();
+    console.log(updatedUser);
     loader.classList.add('none2');
     if (updatedUser.status) {
       let user = updatedUser.data.farmer;
@@ -59,6 +60,7 @@ async function postData(event) {
       throw new Error(updatedUser.data.errorMessage);
     }
   } catch (error) {
+    console.log(error);
     showSnackbar(error.message, 'red');
   }
 }
