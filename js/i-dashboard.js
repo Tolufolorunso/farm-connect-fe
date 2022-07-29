@@ -51,12 +51,12 @@ const toogleHam3 = () => {
   }
 };
 
-let logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userData');
-  localStorage.removeItem('product');
-  window.location.href = '../../index.html';
-};
+// let logout = () => {
+//   localStorage.removeItem('token');
+//   localStorage.removeItem('userData');
+//   localStorage.removeItem('product');
+//   window.location.href = '../../index.html';
+// };
 
 let productfunc = () => {
   window.location.href = '../investors/i-product-detail.html';
@@ -91,7 +91,12 @@ products.map((item) => {
       },
     });
 
+    if (response.status === 401 || response.statusText === 'a') {
+      logout();
+    }
+
     const userData = await response.json();
+
     if (userData.status) {
       let user = userData.data.investor;
       localStorage.setItem('userData', JSON.stringify(user));
