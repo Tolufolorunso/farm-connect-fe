@@ -73,7 +73,12 @@ ham2.addEventListener('click', toogleHam2);
       authorization: token,
     },
   })
-    .then((res) => res.json())
+    .then((response) => {
+      if (response.status === 401 || response.statusText === 'unauthorized') {
+        logout();
+      }
+      response.json();
+    })
     .then((user) => {
       let arr = user.data;
       loader.classList.add('none2');

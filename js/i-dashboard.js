@@ -91,7 +91,7 @@ products.map((item) => {
       },
     });
 
-    if (response.status === 401 || response.statusText === 'a') {
+    if (response.status === 401 || response.statusText === 'unauthorized') {
       logout();
     }
 
@@ -124,7 +124,12 @@ products.map((item) => {
       authorization: token,
     },
   })
-    .then((res) => res.json())
+    .then((response) => {
+      if (response.status === 401 || response.statusText === 'unauthorized') {
+        logout();
+      }
+      response.json();
+    })
     .then((allProducts) => {
       let productsArr = allProducts.data.filter((prod) => {
         return prod.featured;

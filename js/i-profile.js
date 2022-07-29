@@ -53,6 +53,9 @@ async function postData(event) {
         }),
       }
     );
+    if (response.status === 401 || response.statusText === 'unauthorized') {
+      logout();
+    }
 
     const investor = await response.json();
     loader.classList.add('none2');
