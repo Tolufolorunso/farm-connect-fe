@@ -128,9 +128,10 @@ products.map((item) => {
       if (response.status === 401 || response.statusText === 'unauthorized') {
         logout();
       }
-      response.json();
+      return response.json();
     })
     .then((allProducts) => {
+      console.log(allProducts);
       let productsArr = allProducts.data.filter((prod) => {
         return prod.featured;
       });
@@ -209,5 +210,6 @@ products.map((item) => {
     })
     .catch((err) => {
       console.log(err);
+      loader.classList.add('none2');
     });
 })();

@@ -1,4 +1,5 @@
 let user = JSON.parse(localStorage.getItem('userData'));
+console.log(user);
 let loader = document.querySelector('.loader');
 let profileImage = document.querySelectorAll('.profile-img');
 profileImage = Array.from(profileImage);
@@ -80,11 +81,11 @@ async function postData(event) {
 
 document.getElementById('profileid').addEventListener('submit', postData);
 
-let logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userData');
-  localStorage.removeItem('product');
-  window.location.href = '../../index.html';
-};
+// let logout = () => {
+//   localStorage.removeItem('token');
+//   localStorage.removeItem('userData');
+//   localStorage.removeItem('product');
+//   window.location.href = '../../index.html';
+// };
 
 document.querySelector('.dashb').addEventListener('click', logout);

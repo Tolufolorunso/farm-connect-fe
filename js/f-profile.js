@@ -46,14 +46,16 @@ async function postData(event) {
       }
     );
     const updatedUser = await response.json();
-    console.log(updatedUser);
+
     loader.classList.add('none2');
     if (updatedUser.status) {
       let user = updatedUser.data.farmer;
       let image = `${imageUrl}/${user.image}`;
       localStorage.setItem('userData', JSON.stringify(user));
       document.getElementById('profileImg').setAttribute('src', image);
-
+      document.querySelectorAll('.profile-img').forEach((item) => {
+        item.src = image;
+      });
       showSnackbar(updatedUser.message, 'green');
     } else {
       console.log(updatedUser.data.errorMessage);
