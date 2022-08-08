@@ -45,7 +45,7 @@ header {
 .navbar {
   text-transform: uppercase;
   position: absolute;
-  width: 100%;
+  /* width: 100%; */
   background-color: white;
   top: 70px;
   /* padding-top: 10px; */
@@ -55,8 +55,9 @@ header {
   left: 0;
   text-align: center;
   height: 300px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding-bottom: 20px;
+  gap: 30px;
 }
 
 .animation1 {
@@ -535,14 +536,14 @@ a.active {
   .navbar {
     text-transform: uppercase;
     position: static;
-    width: 550px;
+    /* width: 550px; */
     background-color: white;
     /* padding-top: 10px; */
     display: flex;
     flex-direction: row;
     z-index: 0;
     text-align: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     padding-bottom: unset;
     height: unset;
     font-size: 15px;
@@ -593,14 +594,14 @@ a.active {
   .navbar {
     text-transform: uppercase;
     position: static;
-    width: 600px;
+    /* width: 600px; */
     background-color: white;
     /* padding-top: 10px; */
     display: flex;
     flex-direction: row;
     z-index: 0;
     text-align: center;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     padding-bottom: unset;
     height: unset;
     font-size: 15px;
