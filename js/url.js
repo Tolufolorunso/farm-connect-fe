@@ -1,13 +1,21 @@
-// let APIUrl = `http://localhost:4000/api/v1`;
-// let imageUrl = 'http://localhost:4000/uploads';
+let APIUrl = `http://localhost:4000/api/v1`;
+let imageUrl = 'http://localhost:4000/uploads';
 
-const APIUrl = `https://farmconnectng.herokuapp.com/api/v1`;
-let imageUrl = 'https://farmconnectng.herokuapp.com/uploads';
+// const APIUrl = `https://farmconnectng.herokuapp.com/api/v1`;
+// let imageUrl = 'https://farmconnectng.herokuapp.com/uploads';
+
+let firstTimer = localStorage.getItem('firstTimer');
+if (!firstTimer) {
+  localStorage.setItem('firstTimer', true);
+  localStorage.clear();
+}
 
 let logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userData');
-  localStorage.removeItem('product');
+  // localStorage.removeItem('token');
+  // localStorage.removeItem('userData');
+  // localStorage.removeItem('product');
+  localStorage.clear();
+  localStorage.setItem('firstTimer', true);
   window.location.href = '../../index.html';
 };
 
@@ -54,5 +62,5 @@ const showAuthError = (message, duration = 3000) => {
 
   setTimeout(() => {
     removeError();
-  }, 3000);
+  }, duration);
 };

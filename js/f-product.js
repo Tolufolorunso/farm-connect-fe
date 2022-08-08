@@ -46,12 +46,12 @@ const toogleHam2 = () => {
   }
 };
 
-let logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userData');
-  localStorage.removeItem('product');
-  window.location.href = '../../index.html';
-};
+// let logout = () => {
+//   localStorage.removeItem('token');
+//   localStorage.removeItem('userData');
+//   localStorage.removeItem('product');
+//   window.location.href = '../../index.html';
+// };
 
 logoutbutton.addEventListener('click', logout);
 ham2.addEventListener('click', toogleHam2);

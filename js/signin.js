@@ -1,4 +1,14 @@
 let loader = document.querySelector('.loader');
+let localUser = localStorage.getItem('userData');
+if (localUser) {
+  let user = JSON.parse(localUser);
+  if (user.role === 'farmer') {
+    window.location.href = '/pages/farmers/f-dashboard.html';
+  } else {
+    window.location.href = '/pages/investors/i-dashboard.html';
+  }
+}
+
 async function postData(event) {
   event.preventDefault();
   error.textContent = '';

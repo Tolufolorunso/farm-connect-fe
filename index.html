@@ -20,8 +20,6 @@
             <nav class="navbar animation2">
                 <a href="" class="active item first">Home</a>
                 <a href="/pages/about-us.html" class=" nav-item item">About Us</a>
-                <a href="/pages/funded.html" class="nav-item item">Funded</a>
-                <a href="/pages/contact-us.html" class="nav-item item">Get Help</a>
                 <a href="pages/sign-in.html" class="nav-button nav-item ">Sign In</a>
                 <a href="pages/sign-up-gate.html" class="nav-button green nav-item">Sign Up</a>
             </nav>
@@ -136,12 +134,13 @@
             <div class="navigation">
                 <h2 class="navi">Navigation</h3>
                     <a href="/pages/about-us.html">About Us</a>
-                    <a href="/pages/terms-of-sponsorship.html">Terms of Sponsorship</a>
-                    <a href="/pages/contact-us.html">Contact Us</a>
-                    <a href="/pages/terms-of-use.html">Terms of Use</a>
-                    <a href="/pages/privacy-policy.html">Privacy Policy</a>
-                    <a href="pages/faqs.html">FAQs</a>
-                    <a href="/pages/funded.html">Funded</a>
+                    <a href="#">Terms of Sponsorship</a>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Terms of Use</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">FAQs</a>
+                    <a href="#">Funded</a>
+                    <a href="/pages/contact-us.html" class="nav-item item">Get Help</a>
             </div>
             <div class="sub">
                 <h5 class="sub-text">Subscribe</h5>
@@ -157,6 +156,12 @@
     </footer>
     <script>
         let user = localStorage.getItem("userData")
+        let firstTimer = localStorage.getItem('firstTimer')
+        if(!firstTimer) {
+            console.log(firstTimer);
+            localStorage.clear()
+            localStorage.setItem('firstTimer', 'true')
+        }
         if (user) {
             user = JSON.parse(user);
             if (user.role === "farmer") {
