@@ -33,18 +33,18 @@ if (ham1) {
 
 const slidelist = [
   {
-    image: 'img/testimonies.jpg',
-    name: 'Folorunso tolu',
+    image: 'img/farmer-1.png',
+    name: 'Babajide Adejare',
     text: 'The idea behind FarmConnect is quite good. It has the potential to create jobs for lots of people. It is very easy to do business with them because everything takes place online. I would recommend them to others.',
   },
   {
-    image: 'img/testimonies.jpg',
-    name: 'Folorunso tolu',
+    image: 'img/farmer-2.jpg',
+    name: 'Adesola ojo',
     text: 'I saw FarmConnect on LinkedIn and visited the website. Chatted with a customer care representative and I got satisfactory answers to my questions. I am positively loving it and am rooting for them.',
   },
   {
-    image: 'img/testimonies.jpg',
-    name: 'Folorunso tolu',
+    image: 'img/farmer-3.jpg',
+    name: 'Adeyemo babasuwe',
     text: 'FarmConnect is Awesome, please try it and you will never regret it.',
   },
 ];

@@ -112,10 +112,11 @@ a.active {
 }
 
 .welcome {
-  background-image: url('../img/farm.png');
+  background-image: url('../img/cattle-inspection.jpg');
   text-transform: uppercase;
   height: 60vh;
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
   /* margin-top: 70px; */
   padding-top: 80px;
@@ -189,7 +190,11 @@ a.active {
 .item-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  /* display: grid;
+  grid-template-columns: 1fr; */
+  width: 90%;
+  margin: 0 auto;
+  gap: 10px;
 }
 
 .box {
@@ -691,6 +696,7 @@ a.active {
 
   .item-container {
     flex-direction: row;
+    /* grid-template-columns: 1fr 1fr 1fr; */
   }
 
   .box {
@@ -735,7 +741,7 @@ a.active {
     margin-top: 30px;
     margin-bottom: 30px;
     margin-right: 60px;
-    width: 25%;
+    /* width: 25%; */
     margin-left: auto;
     margin-right: auto;
   }
