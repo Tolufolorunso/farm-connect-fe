@@ -47,103 +47,94 @@ const toogleHam2 = () => {
   }
 };
 
-// let logout = () => {
-//   localStorage.removeItem('token');
-//   localStorage.removeItem('userData');
-//   localStorage.removeItem('product');
-//   window.location.href = '../../index.html';
-// };
-
 logoutbutton.addEventListener('click', logout);
 ham2.addEventListener('click', toogleHam2);
 
-(function () {
+(async function () {
   let user = JSON.parse(localStorage.getItem('userData'));
   let token = 'JWT ' + localStorage.getItem('token');
+
   profileName.textContent = user.name;
   profileName1.textContent = user.name;
   profileImage.map((item) => {
     item.src = `${imageUrl}/${user.image}`;
   });
 
-  https: fetch(`${APIUrl}/products`, {
-    method: 'GET',
-    withCredentials: true,
-    headers: {
-      authorization: token,
-    },
-  })
-    .then((response) => {
-      if (response.status === 401 || response.statusText === 'unauthorized') {
-        logout();
-      }
-      response.json();
-    })
-    .then((user) => {
-      let arr = user.data;
-      loader.classList.add('none2');
-      arr.map((item) => {
-        let productCard = document.createElement('div');
-        productCard.classList.add('products-card');
-        let image = document.createElement('img');
-        image.src = `${imageUrl}/${item.image}`;
-        let desc = document.createElement('div');
-        desc.classList.add('desc');
-        let h6 = document.createElement('h6');
-        h6.textContent = item.name;
-        h6.classList.add('product-text');
-        let h62 = document.createElement('h6');
-        h62.classList.add('amount');
-        h62.innerHTML = `<span>&#8358;${item.amountNeeded}</span>`;
-        desc.appendChild(h6);
-        desc.appendChild(h62);
-        productCard.setAttribute('data-name', item.name);
-        productCard.setAttribute('data-image', item.image);
-        productCard.setAttribute('data-amount', item.amountNeeded);
-        productCard.setAttribute('data-duration', item.durationOfInvestment);
-        productCard.setAttribute('data-returns', item.returnsOnInvestment);
-        productCard.setAttribute('data-investors', item.investors);
-        productCard.setAttribute('data-desc', item.projectDescription);
-        productCard.setAttribute('data-location', item.location);
-        productCard.setAttribute(
-          'data-mininvest',
-          item.minimumInvestmentPerUnit
-        );
-        productCard.setAttribute('data-id', item._id);
-        productCard.setAttribute('data-amountcollected', item.amountCollected);
-
-        productCard.appendChild(image);
-        productCard.appendChild(desc);
-        featitems.appendChild(productCard);
-      });
-
-      let products = document.querySelectorAll('.products-card');
-      products = Array.from(products);
-
-      let productfunc = (item) => {
-        localStorage.removeItem('product');
-        let data = {
-          name: item.dataset.name,
-          image: item.dataset.image,
-          amount: item.dataset.amount,
-          duration: item.dataset.duration,
-          returns: item.dataset.returns,
-          investors: item.dataset.investors,
-          desc: item.dataset.desc,
-          location: item.dataset.location,
-          minvest: item.dataset.mininvest,
-          id: item.dataset.id,
-          amountCollected: item.dataset.amountcollected,
-        };
-        localStorage.setItem('product', JSON.stringify(data));
-        window.location.href = '../investors/i-product-detail.html';
-      };
-
-      products.map((item) => {
-        item.addEventListener('click', () => productfunc(item));
-      });
-    })
-    .catch((err) => {
-      console.log(err);
+  try {
+    const response = await fetch(`${APIUrl}/products`, {
+      method: 'GET',
+      withCredentials: true,
+      headers: {
+        authorization: token,
+      },
     });
+
+    if (response.status === 401 || response.statusText === 'unauthorized') {
+      logout();
+    }
+
+    const result = await response.json();
+
+    arr = result.data;
+    loader.classList.add('none2');
+    arr.map((item) => {
+      let productCard = document.createElement('div');
+      productCard.classList.add('products-card');
+      let image = document.createElement('img');
+      image.src = `${imageUrl}/${item.image}`;
+      let desc = document.createElement('div');
+      desc.classList.add('desc');
+      let h6 = document.createElement('h6');
+      h6.textContent = item.name;
+      h6.classList.add('product-text');
+      let h62 = document.createElement('h6');
+      h62.classList.add('amount');
+      h62.innerHTML = `<span>&#8358;${item.amountNeeded}</span>`;
+      desc.appendChild(h6);
+      desc.appendChild(h62);
+      productCard.setAttribute('data-name', item.name);
+      productCard.setAttribute('data-image', item.image);
+      productCard.setAttribute('data-amount', item.amountNeeded);
+      productCard.setAttribute('data-duration', item.durationOfInvestment);
+      productCard.setAttribute('data-returns', item.returnsOnInvestment);
+      productCard.setAttribute('data-investors', item.investors);
+      productCard.setAttribute('data-desc', item.projectDescription);
+      productCard.setAttribute('data-location', item.location);
+      productCard.setAttribute('data-mininvest', item.minimumInvestmentPerUnit);
+      productCard.setAttribute('data-id', item._id);
+      productCard.setAttribute('data-amountcollected', item.amountCollected);
+
+      productCard.appendChild(image);
+      productCard.appendChild(desc);
+      featitems.appendChild(productCard);
+    });
+
+    let products = document.querySelectorAll('.products-card');
+    products = Array.from(products);
+
+    let productfunc = (item) => {
+      localStorage.removeItem('product');
+      let data = {
+        name: item.dataset.name,
+        image: item.dataset.image,
+        amount: item.dataset.amount,
+        duration: item.dataset.duration,
+        returns: item.dataset.returns,
+        investors: item.dataset.investors,
+        desc: item.dataset.desc,
+        location: item.dataset.location,
+        minvest: item.dataset.mininvest,
+        id: item.dataset.id,
+        amountCollected: item.dataset.amountcollected,
+      };
+      localStorage.setItem('product', JSON.stringify(data));
+      window.location.href = '../investors/i-product-detail.html';
+    };
+
+    products.map((item) => {
+      item.addEventListener('click', () => productfunc(item));
+    });
+  } catch (error) {
+    console.log(error);
+  }
 })();
